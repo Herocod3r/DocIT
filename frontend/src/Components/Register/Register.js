@@ -25,7 +25,7 @@ class Register extends Component {
                   className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                                 type="text"
                                 name="name"
-                                id="indown teu "                />
+                                id="indown teu "/>
               </div>
               <div className="mt3">
                 <label className="db fw6 lh-copy f6" htmlFor="email-address">
@@ -63,3 +63,5 @@ class Register extends Component {
        );
     }
 }
+
+export default Register;
