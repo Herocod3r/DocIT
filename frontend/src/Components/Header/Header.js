@@ -3,7 +3,7 @@ import 'tachyons';
 import '../../App.css';
 
 const Header = ({ onRouteChange, isSignedIn }) => {
-  if (isSignedIn) {
+  if (!isSignedIn) {
     return (
       <div>
         <nav>
@@ -11,7 +11,7 @@ const Header = ({ onRouteChange, isSignedIn }) => {
             onClick={() => onRouteChange('home')}
             class="link dim black b f1 f-headline-ns tc db pointer m-0"
             title="Home"
-            style={{fontFamily: 'Monospace, Sans-Serif'}}
+            style={{ fontFamily: 'Monospace, Sans-Serif' }}
           >
             DOC-IT
           </p>
@@ -30,19 +30,21 @@ const Header = ({ onRouteChange, isSignedIn }) => {
             </p>
           </div>
         </nav>
+        <hr />
       </div>
     );
   } else {
     return (
       <div>
         <nav>
-          <a
-            class="link dim black b f1 f-headline-ns tc db mb3 mb4-ns"
-            href="#0"
+          <p
+            onClick={() => onRouteChange('home')}
+            class="link dim black b f1 f-headline-ns tc db pointer m-0"
             title="Home"
+            style={{ fontFamily: 'Monospace, Sans-Serif' }}
           >
             DOC-IT
-          </a>
+          </p>
           <div class="tc pb3">
             <p
               onClick={() => onRouteChange('signin')}
@@ -58,6 +60,7 @@ const Header = ({ onRouteChange, isSignedIn }) => {
             </p>
           </div>
         </nav>
+        <hr />
       </div>
     );
   }
