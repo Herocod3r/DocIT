@@ -7,7 +7,7 @@ namespace DocIT.Service.Models
     {
         public Settings(IConfiguration configuration)
         {
-            var mongoConnectionString = Environment.GetEnvironmentVariable("MonogoCon");
+            var mongoConnectionString = Environment.GetEnvironmentVariable("MONGODB_URI");
             var mailerConnectionString = Environment.GetEnvironmentVariable("MailerCon");
             var dbName = Environment.GetEnvironmentVariable("DBName");
 
@@ -18,6 +18,7 @@ namespace DocIT.Service.Models
             JwtIssuer = configuration.GetSection("JwtIssuerOptions:Issuer").Value;
             JwtAudience = configuration.GetSection("JwtIssuerOptions:Audience").Value;
             JwtSecurityKey = configuration.GetSection("JwtIssuerOptions:SecurityKey").Value;
+            System.Diagnostics.Debug.WriteLine(mongoConnectionString + "   " + dbName);
         }
 
         public string MongoConnectionString { get; private set; }
