@@ -13,7 +13,7 @@ namespace DocIT.Core.Services
         Task<ListViewModel<User>> ListUsersAsync(int skip, int limit);
         Task<User> GetUserByEmailAsync(string email);
         Task<User> RegisterUserAsync(RegisterPayload payload);
-        Task UpdateUserAsync(User user);
+        Task UpdateUserAsync(UpdateAccountPayload user, Guid userId);
         Task<LoginViewModel> LoginUserAsync(LoginPayload login);
 
     }

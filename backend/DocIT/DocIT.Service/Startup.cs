@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MongoDbGenericRepository;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace DocIT.Service
 {
@@ -34,7 +36,7 @@ namespace DocIT.Service
 
             var settings = new Models.Settings(Configuration);
             services.AddSingleton(settings);
-            var context = new MongoDbContext(settings.MailerConnectionString,"DocITDB");
+            var context = new MongoDbContext(settings.MongoConnectionString,"DocITDB");
             services.AddIdentity<Models.ApplicationUser, Models.ApplicationRole>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -73,6 +75,40 @@ namespace DocIT.Service
               };
           });
             services.AddScoped<DocIT.Core.Services.IUserAuthenticationService, AuthenticationService>();
+
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Info
+                {
+                    Title = "DocIT API",
+                    Version = "v0.1.0",
+                    Description = "DocIT REST API",
+                    Contact = new Contact
+                    {
+                        Name = "DocIT API Developers",
+                        Email = "jethromain@gmail.com",
+                        Url = "https://localhost:5000"
+                    }
+                });
+                options.AddSecurityDefinition("oauth2", new ApiKeyScheme
+                {
+                    Description = "Standard Authorization header using the Bearer scheme. Example: \"bearer {token}\"",
+                    In = "header",
+                    Name = "Authorization",
+                    Type = "apiKey"
+                });
+
+                var basePath = AppContext.BaseDirectory;
+                var assemblyName = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
+                var fileName = Path.GetFileName(assemblyName + ".xml");
+                options.IncludeXmlComments(System.IO.Path.Combine(basePath, fileName));
+
+               // options.SchemaFilter<SchemaFilter>();
+                //options.OperationFilter<SecurityRequirementsOperationFilter>();
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,6 +125,16 @@ namespace DocIT.Service
             }
             app.UseAuthentication();
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DocIT API");
+                c.RoutePrefix = string.Empty;
+
+
+            });
+
             app.UseMvc();
         }
     }

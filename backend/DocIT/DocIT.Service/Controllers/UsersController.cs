@@ -49,7 +49,7 @@ namespace DocIT.Service.Controllers
 
         }
 
-
+        [HttpPost("login")]
         public async Task<IActionResult> LoginAsync([FromBody] LoginPayload loginPayload)
         {
             try
@@ -63,7 +63,7 @@ namespace DocIT.Service.Controllers
             }
         }
 
-
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] UpdateAccountPayload item)
         {
