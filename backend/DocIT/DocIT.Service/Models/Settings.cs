@@ -19,6 +19,7 @@ namespace DocIT.Service.Models
             JwtAudience = configuration.GetSection("JwtIssuerOptions:Audience").Value;
             JwtSecurityKey = configuration.GetSection("JwtIssuerOptions:SecurityKey").Value;
             System.Diagnostics.Debug.WriteLine(mongoConnectionString + "   " + dbName);
+            Console.WriteLine(mongoConnectionString + "   " + dbName);
         }
 
         public string MongoConnectionString { get; private set; }
