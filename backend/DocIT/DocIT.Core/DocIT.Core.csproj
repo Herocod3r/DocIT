@@ -10,10 +10,14 @@
     <Folder Include="Data\ViewModels\" />
     <Folder Include="Data\Payloads\" />
     <Folder Include="Repositories\" />
-    <Folder Include="services\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\Implementations\" />
+    <Folder Include="Services\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
     <PackageReference Include="AutoMapper" Version="8.1.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+    <PackageReference Include="MongoDbGenericRepository" Version="1.4.0" />
   </ItemGroup>
 </Project>
