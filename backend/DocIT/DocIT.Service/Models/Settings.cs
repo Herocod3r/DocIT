@@ -7,8 +7,7 @@ namespace DocIT.Service.Models
     {
         public Settings(IConfiguration configuration)
         {
-            try
-            {
+           
                 var mongoConnectionString = Environment.GetEnvironmentVariable("MONGODB_URI");
                 var mailerConnectionString = Environment.GetEnvironmentVariable("MailerCon");
                 var dbName = Environment.GetEnvironmentVariable("DBName");
@@ -16,18 +15,13 @@ namespace DocIT.Service.Models
 
                 MongoConnectionString = string.IsNullOrEmpty(mongoConnectionString) ? "mongodb://localhost:27017" : mongoConnectionString;
                 MailerConnectionString = string.IsNullOrWhiteSpace(mailerConnectionString) ? "" : mailerConnectionString;
-                dbName = string.IsNullOrEmpty(dbName) ? "DocITDB" : dbName;
+                DbName = string.IsNullOrEmpty(dbName) ? "DocITDB" : dbName;
                 JwtIssuer = configuration.GetSection("JwtIssuerOptions:Issuer").Value;
                 JwtAudience = configuration.GetSection("JwtIssuerOptions:Audience").Value;
                 JwtSecurityKey = configuration.GetSection("JwtIssuerOptions:SecurityKey").Value;
-                System.Diagnostics.Debug.WriteLine(mongoConnectionString + "   " + dbName);
-                Console.WriteLine(mongoConnectionString + "   " + dbName);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
-            }
+                System.Diagnostics.Debug.WriteLine("mong==>"+mongoConnectionString + "   dbName==>" + dbName);
+                Console.WriteLine("mong==>" + MongoConnectionString + "   dbName==>" + DbName);
+           
            
         }
 
