@@ -9,11 +9,10 @@ const Header = ({ onRouteChange, isSignedIn }) => {
         <nav>
           <p
             onClick={() => onRouteChange('home')}
-            class="link dim black b f1 f-headline-ns tc db pointer m-0"
+            className="mv0 heading link dim black b f1 tc db pointer m-0"
             title="Home"
-            style={{ fontFamily: 'Monospace, Sans-Serif' }}
           >
-            DOC-IT
+            Doc-it!
           </p>
           <div class="tc">
             <p
@@ -39,11 +38,10 @@ const Header = ({ onRouteChange, isSignedIn }) => {
         <nav>
           <p
             onClick={() => onRouteChange('home')}
-            class="link dim black b f1 f-headline-ns tc db pointer m-0"
+            className="mv1 heading link dim black b f1 fw6 tc db pointer m-0"
             title="Home"
-            style={{ fontFamily: 'Monospace, Sans-Serif' }}
           >
-            DOC-IT
+            Doc-it!
           </p>
           <div class="tc pb3">
             <p

@@ -42,15 +42,12 @@ class SignIn extends Component {
                 <input type="checkbox" /> Remember me
               </label>
             </fieldset>
-            <div className="">
+            <div className="tc">
               <input
                 className="br2 b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f5 dib"
                 type="submit"
                 value="Sign in"
               />
-            </div>
-            <div className="lh-copy mt3">
-              <p className="f6 link dim black db pointer">Register</p>
             </div>
           </div>
         </main>
