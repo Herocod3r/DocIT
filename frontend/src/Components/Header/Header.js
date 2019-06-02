@@ -14,7 +14,7 @@ const Header = ({ onRouteChange, isSignedIn }) => {
           >
             Doc-it!
           </p>
-          <div class="tc">
+          {/* <div class="tc">
             <p
               //   onClick={() => onRouteChange('signin')}
               className="link dim gray f6 f5-ns dib mr3 pointer"
@@ -27,7 +27,7 @@ const Header = ({ onRouteChange, isSignedIn }) => {
             >
               Sign Out
             </p>
-          </div>
+          </div> */}
         </nav>
         <hr />
       </div>
@@ -43,7 +43,7 @@ const Header = ({ onRouteChange, isSignedIn }) => {
           >
             Doc-it!
           </p>
-          <div class="tc pb3">
+          {/* <div class="tc pb3">
             <p
               onClick={() => onRouteChange('signin')}
               className="link dim gray f6 f5-ns dib mr3 pointer"
@@ -56,7 +56,7 @@ const Header = ({ onRouteChange, isSignedIn }) => {
             >
               Register
             </p>
-          </div>
+          </div> */}
         </nav>
         <hr />
       </div>

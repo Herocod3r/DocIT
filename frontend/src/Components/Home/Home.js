@@ -7,9 +7,9 @@ const Home = ({ onRouteChange, isSignedIn }) => {
         <article class="bg-white">
           <div class="ph4 ph5-m ph6-l">
             <div class="pv4 f4 f2-ns center">
-              <h1 class="heading fw6 f1 fl w-100 black-70 tc mt0 mb3">
+              {/* <h1 class="heading fw6 f1 fl w-100 black-70 tc mt0 mb3">
                 About Doc-it
-              </h1>
+              </h1> */}
               <p class="db black-70 serif mv0 baskerville">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel
                 lectus porta, mollis dolor ut, auctor eros. Sed placerat
@@ -28,13 +28,13 @@ const Home = ({ onRouteChange, isSignedIn }) => {
             style={{ marginLeft: '25%' }}
             class="fl w-25 bg-near-white tc pointer"
           >
-            <p className="link dim gray f6 f5-ns dib mr3">Sign In</p>
+            <p className="link mh0 dim gray f6 f5-ns dib mr3">Sign In</p>
           </div>
           <div
             onClick={() => onRouteChange('register')}
             class="fl w-25 bg-light-gray tc pointer"
           >
-            <p className="link dim gray f6 f5-ns dib mr3">Register</p>
+            <p className="link mh0 dim gray f6 f5-ns dib mr3">Register</p>
           </div>
         </article>
       </main>
