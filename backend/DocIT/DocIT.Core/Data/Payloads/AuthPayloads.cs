@@ -27,4 +27,11 @@ namespace DocIT.Core.Data.Payloads
         [Required]
         public string Password { get; set; }
     }
+
+    public class UpdateAccountPayload
+    {
+        [Required]
+        public string Name { get; set; }
+
+    }
 }

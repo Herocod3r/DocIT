@@ -72,6 +72,7 @@ namespace DocIT.Service
                   ValidateAudience = false
               };
           });
+            services.AddScoped<DocIT.Core.Services.IUserAuthenticationService, AuthenticationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

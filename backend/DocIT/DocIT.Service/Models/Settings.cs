@@ -11,7 +11,7 @@ namespace DocIT.Service.Models
             var mailerConnectionString = Environment.GetEnvironmentVariable("MailerCon");
 
 
-            MongoConnectionString = string.IsNullOrEmpty(mongoConnectionString) ? "" : mongoConnectionString;
+            MongoConnectionString = string.IsNullOrEmpty(mongoConnectionString) ? "mongodb://localhost:27017" : mongoConnectionString;
             MailerConnectionString = string.IsNullOrWhiteSpace(mailerConnectionString) ? "" : mailerConnectionString;
             JwtIssuer = configuration.GetSection("JwtIssuerOptions:Issuer").Value;
             JwtAudience = configuration.GetSection("JwtIssuerOptions:Audience").Value;

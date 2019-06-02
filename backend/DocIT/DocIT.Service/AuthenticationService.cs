@@ -54,7 +54,7 @@ namespace DocIT.Service
             var user = await userManager.FindByEmailAsync(login.Email);
             if (user is null) throw new AuthException("Email Or Password Is Incorrect");
             var result = await signInManager.CheckPasswordSignInAsync(user, login.Password, false);
-            if (result.Succeeded ) return new LoginViewModel { Token = GenerateToken(user.Id.ToString()), User = user.UserAccount };
+            if (result.Succeeded ) return new LoginViewModel { Token = GenerateToken(user.Id.ToString(),user.Email), User = user.UserAccount };
 
              throw new AuthException("Email Or Password Is Incorrect");
         }
@@ -72,16 +72,16 @@ namespace DocIT.Service
 
         }
 
-        public async Task UpdateUserAsync(User user)
+        public async Task UpdateUserAsync(UpdateAccountPayload user,Guid userId)
         {
-            var appUser = await userManager.FindByIdAsync(user.Id.ToString());
+            var appUser = await userManager.FindByIdAsync(userId.ToString());
             if (appUser is null) throw new AuthException("Coludnt find the user");
-            appUser.UserAccount = user;
+            appUser.UserAccount.Name = user.Name;
             var res = await userManager.UpdateAsync(appUser);
             if (!res.Succeeded) throw new AuthException("Failed to update the user");
         }
 
-        private string GenerateToken(string id)
+        private string GenerateToken(string id,string email)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(settings.JwtSecurityKey);
@@ -89,7 +89,8 @@ namespace DocIT.Service
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, id)
+                    new Claim(ClaimTypes.Name, id),
+                    new Claim(ClaimTypes.Email,email)
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
