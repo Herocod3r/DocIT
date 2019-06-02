@@ -3,23 +3,31 @@ import 'tachyons';
 import '../../App.css';
 
 const Header = ({ onRouteChange, isSignedIn }) => {
-  if (!isSignedIn) {
+  if (isSignedIn) {
     return (
       <div>
-        <nav class="flex justify-between bb b--white-10">
-          <a
-            className="link white-70 hover-white no-underline flex items-center pa3"
-            href="/"
+        <nav>
+          <p
+            onClick={() => onRouteChange('home')}
+            class="link dim black b f1 f-headline-ns tc db pointer m-0"
+            title="Home"
+            style={{fontFamily: 'Monospace, Sans-Serif'}}
           >
-            <h3>DocIT</h3>
-          </a>
-          <div class="flex-grow pa3 flex items-center">
-            <a class="f6 link dib white dim mr3 mr4-ns" href="#0">
+            DOC-IT
+          </p>
+          <div class="tc">
+            <p
+              //   onClick={() => onRouteChange('signin')}
+              className="link dim gray f6 f5-ns dib mr3 pointer"
+            >
               Gad Jacobs
-            </a>
-            <a class="f6 link dib white dim mr3 mr4-ns" href="#0">
+            </p>
+            <p
+              onClick={() => onRouteChange('signin')}
+              className="link dim gray f6 f5-ns dib mr3 pointer"
+            >
               Sign Out
-            </a>
+            </p>
           </div>
         </nav>
       </div>
@@ -27,23 +35,24 @@ const Header = ({ onRouteChange, isSignedIn }) => {
   } else {
     return (
       <div>
-        <nav class="flex justify-between bb b--white-10">
+        <nav>
           <a
-            className="link white-70 hover-white no-underline flex items-center pa3"
-            href="/"
+            class="link dim black b f1 f-headline-ns tc db mb3 mb4-ns"
+            href="#0"
+            title="Home"
           >
-            <h3>Doc IT</h3>
+            DOC-IT
           </a>
-          <div class="flex-grow pa3 flex items-center">
+          <div class="tc pb3">
             <p
               onClick={() => onRouteChange('signin')}
-              className="f3 white link dim underline pointer"
+              className="link dim gray f6 f5-ns dib mr3 pointer"
             >
               Sign In
             </p>
             <p
               onClick={() => onRouteChange('register')}
-              className="f3 white link dim underline pointer"
+              className="link dim gray f6 f5-ns dib mr3 pointer"
             >
               Register
             </p>
