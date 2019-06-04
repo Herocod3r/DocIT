@@ -12,6 +12,6 @@ namespace DocIT.Core.Repositories
         Task<Tmodel> CreateNewAsync(Tmodel item);
         Task<Tmodel> UpdateAsync(Tmodel item);
         Task DeleteAsync(Tmodel item);
-        
+
     }
 }

@@ -32,6 +32,7 @@ namespace DocIT.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var settings = new Models.Settings(Configuration);
@@ -106,6 +107,17 @@ namespace DocIT.Service
 
                // options.SchemaFilter<SchemaFilter>();
                 //options.OperationFilter<SecurityRequirementsOperationFilter>();
+            });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowMyOrigin",
+                builder1 => builder1
+                .WithOrigins("*")
+                .WithHeaders("*")
+                .WithMethods("*")
+                .WithExposedHeaders("X-Pagination")
+                .SetPreflightMaxAge(TimeSpan.FromSeconds(2520))
+                );
             });
 
 
