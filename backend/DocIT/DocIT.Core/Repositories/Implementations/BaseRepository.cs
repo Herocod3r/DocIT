@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using DocIT.Core.Data.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDbGenericRepository;
 
 namespace DocIT.Core.Repositories.Implementations
 {
@@ -15,35 +14,33 @@ namespace DocIT.Core.Repositories.Implementations
          where TModel : DbModel<Tid>
         where TQueryModel : DbModel<Tid>
     {
-        //private readonly IMongoDbContext dbContext;
-        IMongoCollection<TModel> collection;
         public BaseRepository(IMongoDatabase dbContext)
         {
 
 
-            this.collection = dbContext.GetCollection<TModel>(typeof(TModel).Name);
+            this.Collection = dbContext.GetCollection<TModel>(typeof(TModel).Name);
         }
 
-        protected IMongoCollection<TModel> Collection => collection;
+        protected IMongoCollection<TModel> Collection { get; }
 
         public async Task<TModel> CreateNewAsync(TModel item)
         {
             item.DateCreated = DateTime.Now;
-            await Task.Run(() => collection.InsertOne(item));
+            await Task.Run(() => Collection.InsertOne(item));
             return item;
         }
 
-        public Task DeleteAsync(TModel item) => Task.Run(() => collection.DeleteOne(x => x.Id.Equals(item.Id)));
+        public Task DeleteAsync(TModel item) => Task.Run(() => Collection.DeleteOne(x => x.Id.Equals(item.Id)));
 
         public async Task<TModel> GetByIdAsync(Tid id)
         {
-            var items = await collection.FindAsync(x => x.Id.Equals(id));
+            var items = await Collection.FindAsync(x => x.Id.Equals(id));
             return items.FirstOrDefault();
         }
 
 
 
-        public Task UpdateAsync(TModel item) => Task.Run(()=> collection.ReplaceOne(x => x.Id.Equals(item.Id), item));
+        public Task UpdateAsync(TModel item) => Task.Run(()=> Collection.ReplaceOne(x => x.Id.Equals(item.Id), item));
 
         public IQueryable<TQueryModel> QueryAsync() => ProjectedSource;
 
