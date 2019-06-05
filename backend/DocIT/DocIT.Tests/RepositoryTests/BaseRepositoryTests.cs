@@ -9,12 +9,14 @@ using System.Linq;
 
 namespace DocIT.Tests.RepositoryTests
 {
-    public class BaseRepositoryTests
+    public class BaseRepositoryTests : IDisposable
     {
         IMongoDatabase database;
+        MongoDbRunner _runner;
         public BaseRepositoryTests()
         {
-           var _runner = MongoDbRunner.Start();
+
+            _runner = MongoDbRunner.Start();
             MongoDB.Driver.MongoClient client = new MongoClient(_runner.ConnectionString);
             database = client.GetDatabase("IntegrationTest");
         }
@@ -74,5 +76,30 @@ namespace DocIT.Tests.RepositoryTests
             var item = repo.QueryAsync().Where(x => x.AccountName == "herocod3r").FirstOrDefault();
             Assert.NotNull(item);
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _runner.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }

@@ -77,8 +77,7 @@ namespace DocIT.Service
                   ValidateAudience = false
               };
           });
-            services.AddScoped<DocIT.Core.Services.IUserAuthenticationService, AuthenticationService>();
-
+            services.ConfigureCoreApp();
 
             services.AddSwaggerGen(options =>
             {
@@ -121,6 +120,8 @@ namespace DocIT.Service
                 .SetPreflightMaxAge(TimeSpan.FromSeconds(2520))
                 );
             });
+
+            DocIT.Core.AutoMapperConfig.RegisterMappings();
 
 
         }
