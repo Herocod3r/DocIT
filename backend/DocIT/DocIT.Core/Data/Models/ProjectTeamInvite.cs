@@ -1,9 +1,8 @@
 ﻿using System;
 namespace DocIT.Core.Data.Models
 {
-    public class ProjectTeamInvite
+    public class ProjectTeamInvite : DbModel<Guid>
     {
-        public Guid Id { get; set; }
         public Guid ProjectId { get; set; }
         public Guid UserId { get; set; }
         public DateTime InvitedAt { get; set; }

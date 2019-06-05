@@ -24,6 +24,7 @@ namespace DocIT.Service
     {
         public Startup(IConfiguration configuration)
         {
+
             Configuration = configuration;
         }
 
@@ -38,6 +39,7 @@ namespace DocIT.Service
             var settings = new Models.Settings(Configuration);
             services.AddSingleton(settings);
             var context = new MongoDbContext(settings.MongoConnectionString,settings.DbName);
+            services.AddTransient<MongoDB.Driver.IMongoDatabase>((x) =>new MongoDbContext(settings.MongoConnectionString, settings.DbName).Database);
             services.AddIdentity<Models.ApplicationUser, Models.ApplicationRole>(options =>
             {
                 options.Password.RequireDigit = false;
