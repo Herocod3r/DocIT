@@ -10,6 +10,15 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
+    <PackageReference Include="Mongo2Go" Version="2.2.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="RepositoryTests\" />
+    <Folder Include="ServiceTests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DocIT.Core\DocIT.Core.csproj" />
+  </ItemGroup>
 </Project>

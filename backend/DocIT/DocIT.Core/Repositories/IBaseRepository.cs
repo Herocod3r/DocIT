@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Collections.Generic;
+using System.Collections;
+using System.Linq.Expressions;
+using DocIT.Core.Data.Models;
 
 
 namespace DocIT.Core.Repositories
 {
-    public interface IBaseRepository<Tmodel,Tid>
+    public interface IBaseRepository<TModel,TQueryModel,Tid> where TModel:DbModel<Tid>
     {
-        Task<Tmodel> GetByIdAsync(Tid id);
-        Task<(List<Tmodel>, Int64)> ListAllAsync();
-        Task<Tmodel> CreateNewAsync(Tmodel item);
-        Task<Tmodel> UpdateAsync(Tmodel item);
-        Task DeleteAsync(Tmodel item);
-
+        Task<TModel> GetByIdAsync(Tid id);
+        Task<TModel> CreateNewAsync(TModel item);
+        Task UpdateAsync(TModel item);
+        Task DeleteAsync(TModel item);
+        System.Linq.IQueryable<TQueryModel> QueryAsync();
     }
 }

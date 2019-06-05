@@ -34,4 +34,17 @@ namespace DocIT.Core.Data.Payloads
         public string Name { get; set; }
 
     }
+
+    public class GitConfigPayload
+    {
+        [Required]
+        public string AccountName { get; set; }
+
+        [Required]
+        public string PersonalToken { get; set; }
+
+        [Required]
+        public string Type { get; set; } = "Github";
+    }
+
 }
