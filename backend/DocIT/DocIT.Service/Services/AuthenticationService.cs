@@ -13,7 +13,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
-namespace DocIT.Service
+namespace DocIT.Service.Services
 {
     public class AuthenticationService : IUserAuthenticationService
     {

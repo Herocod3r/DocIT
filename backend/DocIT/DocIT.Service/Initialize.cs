@@ -4,6 +4,7 @@ using DocIT.Core.Repositories;
 using DocIT.Core.Repositories.Implementations;
 using DocIT.Core.Services;
 using DocIT.Core.Services.Implementations;
+using DocIT.Service.Services;
 
 namespace DocIT.Service
 {
