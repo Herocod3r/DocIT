@@ -24,7 +24,7 @@ class Dashboard extends Component {
                 <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
             </NavIcon>
             <NavText>
-                Home
+                My Account
             </NavText>
         </NavItem>
         <NavItem eventKey="charts">
@@ -32,16 +32,16 @@ class Dashboard extends Component {
                 <i className="fa fa-fw fa-line-chart" style={{ fontSize: '1.75em' }} />
             </NavIcon>
             <NavText>
-                Charts
+                Projects
             </NavText>
             <NavItem eventKey="charts/linechart">
                 <NavText>
-                    Line Chart
+                    Invitations
                 </NavText>
             </NavItem>
             <NavItem eventKey="charts/barchart">
                 <NavText>
-                    Bar Chart
+                    Documentations
                 </NavText>
             </NavItem>
         </NavItem>
