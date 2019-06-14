@@ -10,6 +10,38 @@ class Register extends Component {
     };
   }
 
+  onNameChange = event => {
+    this.setState({ name: event.target.value });
+  };
+
+  onEmailChange = event => {
+    this.setState({ email: event.target.value });
+  };
+
+  onPasswordChange = event => {
+    this.setState({ password: event.target.value });
+  };
+
+  onSubmitSignIn = () => {
+    fetch('https://docitservice.herokuapp.com/Users', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password,
+        confirmPassword: this.state.password,
+        name: this.state.name
+      })
+    })
+      .then(response => response.json())
+      .then(user => {
+        if (user.id) {
+          this.props.loadUser(user);
+          this.props.onRouteChange('dashboard');
+        }
+      });
+  };
+
   render() {
     return (
       <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
@@ -25,7 +57,8 @@ class Register extends Component {
                   className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                   type="text"
                   name="name"
-                  id="indown teu "
+                  id="name"
+                  onChange={this.onNameChange}
                 />
               </div>
               <div className="mt3">
@@ -37,6 +70,7 @@ class Register extends Component {
                   type="email"
                   name="email-address"
                   id="email-address"
+                  onChange={this.onEmailChange}
                 />
               </div>
               <div className="mv3">
@@ -48,11 +82,13 @@ class Register extends Component {
                   type="password"
                   name="password"
                   id="password"
+                  onChange={this.onPasswordChange}
                 />
               </div>
             </fieldset>
             <div className="tc">
               <input
+                onClick={this.onSubmitSignIn}
                 className="br2 b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f5 dib"
                 type="submit"
                 value="Register"
