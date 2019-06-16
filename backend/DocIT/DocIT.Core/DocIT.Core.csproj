@@ -14,6 +14,7 @@
     <Folder Include="Services\Implementations\" />
     <Folder Include="Services\Exceptions\" />
     <Folder Include="Repositories\Implementations\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.8.1" />

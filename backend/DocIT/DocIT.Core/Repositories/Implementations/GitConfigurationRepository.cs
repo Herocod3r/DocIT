@@ -4,7 +4,8 @@ using DocIT.Core.Data.Models;
 using MongoDB.Driver;
 using System.Linq;
 using System.Threading.Tasks;
-
+using System.Collections;
+using System.Linq.Expressions;
 
 namespace DocIT.Core.Repositories.Implementations
 {
@@ -22,4 +23,9 @@ namespace DocIT.Core.Repositories.Implementations
 
         protected override IQueryable<GitConnectionConfig> ProjectedSource => Collection.AsQueryable();
     }
+
+
+
 }
+
+
