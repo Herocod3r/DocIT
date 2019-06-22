@@ -8,6 +8,6 @@ namespace DocIT.Core.Repositories
 {
     public interface IGitConfigurationRepository : IBaseRepository<GitConnectionConfig,GitConnectionConfig,Guid>
     {
-        Task<(List<GitConnectionConfig>, Int64)> GetAllForUser(Guid userId);
+        (List<GitConnectionConfig>, Int64) GetAllForUser(Guid userId);
     }
 }

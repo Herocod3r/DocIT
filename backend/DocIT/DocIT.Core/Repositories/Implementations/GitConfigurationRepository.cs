@@ -15,9 +15,9 @@ namespace DocIT.Core.Repositories.Implementations
         {
         }
 
-        public async System.Threading.Tasks.Task<(List<GitConnectionConfig>, long)> GetAllForUser(Guid userId)
+        public(List<GitConnectionConfig>, long) GetAllForUser(Guid userId)
         {
-            var items = await Task.Run(()=> QueryAsync().Where(x => x.UserId == userId).OrderByDescending(x => x.DateCreated).ToList());
+            var items =  QueryAsync().Where(x => x.UserId == userId).OrderByDescending(x => x.DateCreated).ToList();
             return (items, items.Count);
         }
 

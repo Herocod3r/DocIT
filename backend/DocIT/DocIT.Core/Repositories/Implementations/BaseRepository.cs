@@ -23,24 +23,24 @@ namespace DocIT.Core.Repositories.Implementations
 
         protected IMongoCollection<TModel> Collection { get; }
 
-        public async Task<TModel> CreateNewAsync(TModel item)
+        public TModel CreateNew(TModel item)
         {
             item.DateCreated = DateTime.Now;
-            await Task.Run(() => Collection.InsertOne(item));
+            Collection.InsertOne(item);
             return item;
         }
 
-        public Task DeleteAsync(TModel item) => Task.Run(() => Collection.DeleteOne(x => x.Id.Equals(item.Id)));
+        public void Delete(TModel item) =>  Collection.DeleteOne(x => x.Id.Equals(item.Id));
 
-        public async Task<TModel> GetByIdAsync(Tid id)
+        public TModel GetById(Tid id)
         {
-            var items = await Collection.FindAsync(x => x.Id.Equals(id));
+            var items = Collection.Find(x => x.Id.Equals(id));
             return items.FirstOrDefault();
         }
 
 
 
-        public Task UpdateAsync(TModel item) => Task.Run(()=> Collection.ReplaceOne(x => x.Id.Equals(item.Id), item));
+        public void Update(TModel item) => Task.Run(()=> Collection.ReplaceOne(x => x.Id.Equals(item.Id), item));
 
         public IQueryable<TQueryModel> QueryAsync() => ProjectedSource;
 

@@ -47,4 +47,31 @@ namespace DocIT.Core.Data.Payloads
         public string Type { get; set; } = "Github";
     }
 
+    public class ProjectPayload
+    {
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string Description { get; set; }
+        public string PathToFile { get; set; }
+        public Guid ParentId { get; set; }
+        public Guid GitConfigId { get; set; }
+        public string GitRepositoryName { get; set; }
+        public string GitPathToFile { get; set; }
+    }
+
+    public class UpdateProjectPayload
+    {
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string Description { get; set; }
+        public string PathToFile { get; set; }
+        public Guid GitConfigId { get; set; }
+        public string GitRepositoryName { get; set; }
+        public string GitPathToFile { get; set; }
+    }
+
 }

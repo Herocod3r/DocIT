@@ -26,7 +26,7 @@ namespace DocIT.Tests.RepositoryTests
         {
             var repo = new ProjectRepository(database);
             var uid = Guid.NewGuid();
-            repo.CreateNewAsync(new Project { CreatedByUserId = uid, Name = "Sample project", Description = "A sample project" }).Wait();
+            repo.CreateNew(new Project { CreatedByUserId = uid, Name = "Sample project", Description = "A sample project" });
             var (col,_) = repo.GetAllForUser(0, 100, uid);
             Assert.NotNull(col);
             Assert.NotEmpty(col);
@@ -38,7 +38,7 @@ namespace DocIT.Tests.RepositoryTests
         {
             var repo = new ProjectRepository(database);
             var uid = Guid.NewGuid();
-            var xr = repo.CreateNewAsync(new Project { CreatedByUserId = uid, Name = "Sample project", Description = "A sample project" }).Result;
+            var xr = repo.CreateNew(new Project { CreatedByUserId = uid, Name = "Sample project", Description = "A sample project" });
             var item = repo.GetSingleForUser(xr.Id, uid);
             Assert.NotNull(item);
         }
@@ -49,7 +49,7 @@ namespace DocIT.Tests.RepositoryTests
             var repo = new ProjectRepository(database);
             var uid = Guid.NewGuid();
             var pid = Guid.NewGuid();
-             repo.CreateNewAsync(new Project { CreatedByUserId = uid, Name = "Sample project", Description = "A sample project", ParentId = pid }).Wait();
+             repo.CreateNew(new Project { CreatedByUserId = uid, Name = "Sample project", Description = "A sample project", ParentId = pid });
 
             var col = repo.GetAllSubProjects(pid);
             Assert.NotNull(col);
