@@ -12,7 +12,6 @@ namespace DocIT.Core.Repositories.Implementations
 {
     public class BaseRepository<TModel, TQueryModel, Tid> : IBaseRepository<TModel,TQueryModel,Tid>
          where TModel : DbModel<Tid>
-        where TQueryModel : DbModel<Tid>
     {
         public BaseRepository(IMongoDatabase dbContext)
         {
