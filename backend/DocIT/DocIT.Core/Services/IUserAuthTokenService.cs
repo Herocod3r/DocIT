@@ -3,6 +3,6 @@ namespace DocIT.Core.Services
 {
     public interface IUserAuthTokenService
     {
-        string GenerateToken(params object[] bodyItems);
+        string GenerateToken(params (string,object)[] bodyItems);
     }
 }

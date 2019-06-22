@@ -12,8 +12,8 @@ namespace DocIT.Service.Controllers
 
     public class BaseController : Controller
     {
-       protected Guid UserId =>  Guid.Parse(User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.Name).Value);
+       protected Guid UserId =>  Guid.Parse(User.Claims.FirstOrDefault(a => a.Type == "ID").Value);
 
-        protected string UserEmailAddress => User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+        protected string UserEmailAddress => User.Claims.FirstOrDefault(x => x.Type == "Email").Value;
     }
 }

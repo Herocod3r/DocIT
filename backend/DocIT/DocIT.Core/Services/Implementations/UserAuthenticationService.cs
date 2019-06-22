@@ -38,7 +38,7 @@ namespace DocIT.Core.Services.Implementations
             try
             {
                 var user = await Task.Run(() => repository.FindUserByEmailAndPassword(login.Email, login.Password));
-                return new LoginViewModel { Token = userAuthToken.GenerateToken(user.Id, user.Email), User = user };
+                return new LoginViewModel { Token = userAuthToken.GenerateToken(("ID",user.Id), ("Email",user.Email)), User = user };
             }
             catch (ArgumentException ex)
             {
