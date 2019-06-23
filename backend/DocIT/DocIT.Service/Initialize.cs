@@ -26,8 +26,8 @@ namespace DocIT.Service
         private static void COnfigureServices(IServiceCollection service)
         {
             service.AddScoped<IGitConfigurationService, GitConfigurationService>();
-            service.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
-            service.AddScoped<IUserAuthTokenService, TokenService>();
+            service.AddScoped<Authentication.IAuthenticationService, Authentication.CoreAuthentication>();
+            service.AddScoped<Authentication.IUserAuthTokenService, Authentication.TokenService>();
         }
     }
 }

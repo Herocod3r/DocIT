@@ -4,80 +4,55 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using DocIT.Core.Services;
 using DocIT.Core.Data.Payloads;
 using DocIT.Core.Services.Exceptions;
 
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace DocIT.Service.Controllers
 {
     [Route("[controller]")]
-    [ApiController]
+    [Authorize]
     public class UsersController : BaseController
     {
-        private readonly IUserAuthenticationService auth;
+        private readonly IUserService service;
 
-        public UsersController(IUserAuthenticationService auth)
+        public UsersController(IUserService service)
         {
-            this.auth = auth;
+            this.service = service;
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var user = await auth.GetUserByIdAsync(UserId);
-            if (user is null) return NotFound();
-            return Ok(user);
-        }
-
-
-
-        // POST api/values
-        [HttpPost]
-        public async Task<IActionResult> Register([FromBody] RegisterPayload reg)
-        {
             try
             {
-                var res = await auth.RegisterUserAsync(reg);
-                return Ok(res);
+                return Ok(await service.GetUserByIdAsync(this.UserId));
             }
-            catch (AuthException ex)
+            catch (ArgumentException ex)
             {
-                return BadRequest(ex.Message);
-            }
-
-        }
-
-        [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginPayload loginPayload)
-        {
-            try
-            {
-                var res = await auth.LoginUserAsync(loginPayload);
-                return Ok(res);
-            }
-            catch (AuthException ex)
-            {
-                return BadRequest(ex.Message);
+                return NotFound(ex.Message);
             }
         }
 
-        [Authorize]
+
+
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] UpdateAccountPayload item)
+        public async Task<IActionResult> Put([FromBody]UpdateAccountPayload value)
         {
             try
             {
-                await auth.UpdateUserAsync(item, this.UserId);
+                await service.UpdateUserAsync(value, this.UserId);
                 return Ok();
             }
-            catch (AuthException ex)
+            catch (ArgumentException ex)
             {
-                return BadRequest(ex.Message);
+                return NotFound(ex.Message);
             }
         }
 
-
+       
     }
 }

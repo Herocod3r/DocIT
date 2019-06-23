@@ -12,7 +12,7 @@ using DocIT.Core.Services.Exceptions;
 
 namespace DocIT.Service.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [Authorize]
     public class GitConfigController : BaseController
     {

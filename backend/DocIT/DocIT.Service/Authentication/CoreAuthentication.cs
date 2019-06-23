@@ -22,17 +22,18 @@ namespace DocIT.Service.Authentication
             this.tokenizer = tokenizer;
         }
 
-        public async Task<string> LoginAsync(LoginPayload login)
+        public async Task<string> LoginAsync(LoginPayload payload)
         {
-            var user = await userManager.FindByEmailAsync(login.Email);
-            if (user is null) throw new AuthException("Email Or Password Is Incorrect");
-            var result = await signInManager.CheckPasswordSignInAsync(user, login.Password, false);
-            if (result.Succeeded) return tokenizer.GenerateToken( ("ID",user.Id), ("Email",user.Email));
+            var login = await userManager.FindByEmailAsync(payload.Email);
+            if (login is null) throw new AuthException("Email Or Password Is Incorrect");
+            var result = await signInManager.CheckPasswordSignInAsync(login, payload.Password, false);
+
+            if (result.Succeeded) return tokenizer.GenerateToken( ("ID",login.UserID), ("Email",login.Email));
 
             throw new AuthException("Email Or Password Is Incorrect");
         }
 
-        public async Task RegisterAsync(RegisterPayload payload)
+        public async Task<AccountViewModel> RegisterAsync(RegisterPayload payload)
         {
             var appUser = new Models.ApplicationUser { UserName = payload.Email, Email = payload.Email};
             var res = await userManager.CreateAsync(appUser, payload.Password);
@@ -40,7 +41,7 @@ namespace DocIT.Service.Authentication
             var user = userRepository.CreateNew(new Core.Data.Models.User { DateCreated = DateTime.Now, Email = payload.Email, Name = payload.Name });
             appUser.UserID = user.Id;
             await userManager.UpdateAsync(appUser);
-
+            return new AccountViewModel { Email = user.Email, Name = user.Name, UserId = user.Id };
         }
     }
 }

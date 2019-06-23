@@ -18,7 +18,7 @@ namespace DocIT.Core
             {
                 cfg.CreateMap<GitConnectionConfig, GitConfigPayload>().ReverseMap();
                 cfg.CreateMap<GitConnectionConfig, GitConfigViewModel>().ReverseMap();
-
+                cfg.CreateMap<User, UpdateAccountPayload>().ReverseMap();
 
             });
         }

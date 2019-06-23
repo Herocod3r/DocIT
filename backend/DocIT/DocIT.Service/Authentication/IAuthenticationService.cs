@@ -7,6 +7,6 @@ namespace DocIT.Service.Authentication
     public interface IAuthenticationService
     {
         Task<string> LoginAsync(LoginPayload payload);
-        Task RegisterAsync(RegisterPayload payload);
+        Task<AccountViewModel> RegisterAsync(RegisterPayload payload);
     }
 }

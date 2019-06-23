@@ -10,9 +10,7 @@ namespace DocIT.Core.Services
     public interface IUserService
     {
         Task<User> GetUserByIdAsync(Guid id);
-        Task<ListViewModel<User>> ListUsersAsync(int skip, int limit);
-        Task<User> GetUserByEmailAsync(string email);
-        Task<User> CreateUser(UserAccountPayload payload);
+        Task<ListViewModel<User>> ListUsersAsync(int skip, int limit = 30);
         Task UpdateUserAsync(UpdateAccountPayload user, Guid userId);
 
     }
