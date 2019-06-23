@@ -65,6 +65,7 @@ namespace DocIT.Tests.RepositoryTests
             {
                 if (disposing)
                 {
+                    DocIT.Core.AutoMapperConfig.Clear();
                     _runner.Dispose();
                 }
 

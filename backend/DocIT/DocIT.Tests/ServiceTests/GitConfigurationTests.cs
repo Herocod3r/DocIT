@@ -88,8 +88,9 @@ namespace DocIT.Tests.ServiceTests
             {
                 if (disposing)
                 {
-                    _runner.Dispose();
                     DocIT.Core.AutoMapperConfig.Clear();
+                    _runner.Dispose();
+                    
                 }
 
                  disposedValue = true;

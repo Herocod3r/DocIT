@@ -2,7 +2,7 @@
 using Xunit;
 namespace DocIT.Tests.ServiceTests
 {
-    public class GitResolverTests
+    public class GitResolverTests : IDisposable
     {
         public GitResolverTests()
         {
@@ -28,5 +28,29 @@ namespace DocIT.Tests.ServiceTests
             var file = new System.IO.StreamReader(resolv.GetFileData(xpath).Result).ReadToEndAsync().Result;
             Assert.NotEqual("", file);
         }
+
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    DocIT.Core.AutoMapperConfig.Clear();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+        #endregion
     }
 }

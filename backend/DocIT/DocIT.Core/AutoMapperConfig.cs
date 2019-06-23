@@ -13,14 +13,21 @@ namespace DocIT.Core
         /// </summary>
         public static void RegisterMappings()
         {
-           
-            Mapper.Initialize(cfg =>
+            try
             {
-                cfg.CreateMap<GitConnectionConfig, GitConfigPayload>().ReverseMap();
-                cfg.CreateMap<GitConnectionConfig, GitConfigViewModel>().ReverseMap();
-                cfg.CreateMap<User, UpdateAccountPayload>().ReverseMap();
+                Mapper.Initialize(cfg =>
+                {
+                    cfg.CreateMap<GitConnectionConfig, GitConfigPayload>().ReverseMap();
+                    cfg.CreateMap<GitConnectionConfig, GitConfigViewModel>().ReverseMap();
+                    cfg.CreateMap<User, UpdateAccountPayload>().ReverseMap();
 
-            });
+                });
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+            
         }
 
 
