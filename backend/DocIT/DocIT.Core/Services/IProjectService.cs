@@ -12,6 +12,8 @@ namespace DocIT.Core.Services
         Task<ProjectViewModel> GetProject(Guid id,Guid? userId);
         Task<ProjectViewModel> CreateProject(ProjectPayload payload,Guid userId);
         Task<ProjectViewModel> UpdateProject(UpdateProjectPayload payload,Guid userId);
+        Task<ProjectViewModel> GetProjectByLink(string link);
+        Task<ProjectViewModel> GenerateProjectLink(string link);
         Task DeleteProject(Guid id,Guid userId); 
     }
 }

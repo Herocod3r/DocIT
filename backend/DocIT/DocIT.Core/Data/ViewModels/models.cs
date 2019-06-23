@@ -36,4 +36,12 @@ namespace DocIT.Core.Data.ViewModels
         public Guid? ParentId { get; set; }
         public DateTime DateCreated { get; set; }
     }
+
+    public class InviteViewModel
+    {
+        public string Email { get; set; }
+        public string ProjectName { get; set; }
+        public string ProjectId { get; set; }
+        public string Inviter { get; set; }
+    }
 }

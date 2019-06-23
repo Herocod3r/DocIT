@@ -39,7 +39,7 @@ namespace DocIT.Core.Repositories.Implementations
 
 
 
-        public void Update(TModel item) => Task.Run(()=> Collection.ReplaceOne(x => x.Id.Equals(item.Id), item));
+        public void Update(TModel item) => Collection.ReplaceOne(x => x.Id.Equals(item.Id), item);
 
         public IQueryable<TQueryModel> QueryAsync() => ProjectedSource;
 

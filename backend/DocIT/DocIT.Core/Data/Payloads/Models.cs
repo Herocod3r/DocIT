@@ -58,6 +58,19 @@ namespace DocIT.Core.Data.Payloads
         public string GitPathToFile { get; set; }
     }
 
+    public class InvitePayload
+    {
+        public Guid ProjectId { get; set; }
+        [Required,EmailAddress]
+        public string Email { get; set; }
+    }
+
+    public class DeleteInvitePayload
+    {
+        public Guid ProjectId { get; set; }
+        public string Email { get; set; }
+    }
+
 
 
 }
