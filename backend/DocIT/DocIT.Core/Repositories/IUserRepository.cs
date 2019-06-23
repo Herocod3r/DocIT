@@ -6,7 +6,6 @@ namespace DocIT.Core.Repositories
 {
     public interface IUserRepository : IBaseRepository<User,User,Guid>
     {
-        User CreateUserAccount(User user, string password);
-        User FindUserByEmailAndPassword(string email, string password);
+
     }
 }

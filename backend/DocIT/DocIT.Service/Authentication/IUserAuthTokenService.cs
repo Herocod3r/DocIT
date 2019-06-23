@@ -1,5 +1,5 @@
 ﻿using System;
-namespace DocIT.Core.Services
+namespace DocIT.Service.Authentication
 {
     public interface IUserAuthTokenService
     {

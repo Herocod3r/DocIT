@@ -7,14 +7,13 @@ using DocIT.Core.Data.ViewModels;
 
 namespace DocIT.Core.Services
 {
-    public interface IUserAuthenticationService
+    public interface IUserService
     {
         Task<User> GetUserByIdAsync(Guid id);
         Task<ListViewModel<User>> ListUsersAsync(int skip, int limit);
         Task<User> GetUserByEmailAsync(string email);
-        Task<User> RegisterUserAsync(RegisterPayload payload);
+        Task<User> CreateUser(UserAccountPayload payload);
         Task UpdateUserAsync(UpdateAccountPayload user, Guid userId);
-        Task<LoginViewModel> LoginUserAsync(LoginPayload login);
 
     }
 }

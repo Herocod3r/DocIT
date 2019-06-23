@@ -1,11 +1,11 @@
 ﻿using System;
 namespace DocIT.Core.Data.Models
 {
-    public class ProjectTeamInviteItem 
+    public class ProjectTeamInviteItem : ProjectTeamInvite
     {
-        public Project Project { get; set; }
-        public User Inviter { get; set; }
-        public User Invited { get; set; }
-        public ProjectTeamInvite Invite { get; set; }
+        public Guid InvitedUserId { get; set; }
+        public string InvitedUserName { get; set; }
+        public string InviteeUserName { get; set; }
+        public string ProjectName { get; set; }
     }
 }
