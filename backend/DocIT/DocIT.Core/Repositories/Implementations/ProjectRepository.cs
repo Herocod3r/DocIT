@@ -30,7 +30,7 @@ namespace DocIT.Core.Repositories.Implementations
             return ProjectedSource.Where(x => x.ParentId == projectId).ToList();
         }
 
-        protected override IQueryable<ProjectListItem> ProjectedSource => Collection.AsQueryable().GroupJoin(Collection.AsQueryable(), (arg) => arg.Id, (arg) => arg.ParentId, (from, to) => new ProjectListItem { CreatedByUserId = from.CreatedByUserId, Id = from.Id, Name = from.Name, ParentId = from.ParentId, DateCreated = from.DateCreated, DateDeleted = from.DateDeleted, Description = from.Description, NoOfSubProjects = to.Count(), PreviewLinks = from.PreviewLinks, SwaggerUrl = from.SwaggerUrl });
+        protected override IQueryable<ProjectListItem> ProjectedSource => Collection.AsQueryable().GroupJoin(Collection.AsQueryable(), (arg) => arg.Id, (arg) => arg.ParentId, (from, to) => new ProjectListItem { CreatedByUserId = from.CreatedByUserId, Id = from.Id, Name = from.Name, ParentId = from.ParentId, DateCreated = from.DateCreated, DateDeleted = from.DateDeleted, Description = from.Description, NoOfSubProjects = to.Count(), PreviewLinks = from.PreviewLinks, SwaggerUrl = from.SwaggerUrl, Invites = from.Invites });
 
         //private IQueryable<ProjectListItem> BuildQuery()
         //{

@@ -45,43 +45,9 @@ namespace DocIT.Core.Repositories.Implementations
 
 
 
-        //public async Task<TModel> CreateNewAsync(TModel item)
-        //{
-        //    await Task.Run(() => collection.InsertOne(item));
-        //    return item;
-        //}
-
-        //public async Task DeleteAsync(TModel item, Tid id)
-        //{
-
-        //    var filter = Builders<TModel>.Filter.Eq("_id", id);
-        //    await Task.Run(() => collection.DeleteOne(filter));
-
-        //}
-
-        //public async Task<TModel> GetByIdAsync(Tid id)
-        //{
-        //    var filter = Builders<TModel>.Filter.Eq("_id", id);
-        //    var item = await collection.FindAsync(filter);
-        //    return await item.FirstOrDefaultAsync();
-        //}
-
-        //public async  Task<(List<TModel>, long)> ListAllAsync(int start, int limit)
-        //{
-        //    var items = await Task.Run(collection.Find(_=> true).S)
-        //}
-
-        //public Task<TModel> QueryAsync(Expression<Func<TModel, bool>> query)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Task<TModel> UpdateAsync(TModel item)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         protected virtual IQueryable<TQueryModel> ProjectedSource { get; }
 
+        public IQueryable<TModel> ObjectQuery => Collection.AsQueryable();
     }
 }

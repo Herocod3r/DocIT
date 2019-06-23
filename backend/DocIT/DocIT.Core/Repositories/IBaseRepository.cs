@@ -14,5 +14,6 @@ namespace DocIT.Core.Repositories
         void Update(TModel item);
         void Delete(TModel item);
         System.Linq.IQueryable<TQueryModel> QueryAsync();
+        System.Linq.IQueryable<TModel> ObjectQuery { get; }
     }
 }

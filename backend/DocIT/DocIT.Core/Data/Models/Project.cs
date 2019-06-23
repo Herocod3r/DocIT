@@ -11,5 +11,6 @@ namespace DocIT.Core.Data.Models
         public List<string> PreviewLinks { get; set; }
         public Guid ParentId { get; set; }
         public Guid CreatedByUserId { get; set; }
+        public List<Invite> Invites { get; set; }
     }
 }

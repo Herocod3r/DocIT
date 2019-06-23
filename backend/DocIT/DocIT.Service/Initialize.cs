@@ -28,6 +28,7 @@ namespace DocIT.Service
             service.AddScoped<IGitConfigurationService, GitConfigurationService>();
             service.AddScoped<Authentication.IAuthenticationService, Authentication.CoreAuthentication>();
             service.AddScoped<Authentication.IUserAuthTokenService, Authentication.TokenService>();
+            service.AddScoped<IUserService, UserService>();
         }
     }
 }
