@@ -9,5 +9,6 @@ namespace DocIT.Core.Data.Models
         public Guid ProjectId { get; set; }
         public List<Invite> Invites { get; set; }
         public string InviterName { get; set; }
+        public DateTime Date { get; set; }
     }
 }

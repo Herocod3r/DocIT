@@ -19,4 +19,14 @@ namespace DocIT.Core.Services.Exceptions
         }
 
     }
+
+
+    public class InviteException : Exception
+    {
+        public InviteException(string message,int code) : base(message)
+        {
+            Code = code;
+        }
+        public int Code { get; }
+    }
 }
