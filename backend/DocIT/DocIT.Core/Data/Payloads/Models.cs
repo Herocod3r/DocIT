@@ -41,6 +41,7 @@ namespace DocIT.Core.Data.Payloads
         public Guid ParentId { get; set; }
         public Guid GitConfigId { get; set; }
         public string GitRepositoryName { get; set; }
+        public string Branch { get; set; }
         public string GitPathToFile { get; set; }
     }
 
@@ -56,5 +57,7 @@ namespace DocIT.Core.Data.Payloads
         public string GitRepositoryName { get; set; }
         public string GitPathToFile { get; set; }
     }
+
+
 
 }

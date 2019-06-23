@@ -10,4 +10,13 @@ namespace DocIT.Core.Services.Exceptions
 
         }
     }
+
+    public class GitResolverException : Exception
+    {
+        public GitResolverException(string message) : base(message)
+        {
+
+        }
+
+    }
 }
