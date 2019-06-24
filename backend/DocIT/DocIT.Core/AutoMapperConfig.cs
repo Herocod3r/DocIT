@@ -20,6 +20,11 @@ namespace DocIT.Core
                     cfg.CreateMap<GitConnectionConfig, GitConfigPayload>().ReverseMap();
                     cfg.CreateMap<GitConnectionConfig, GitConfigViewModel>().ReverseMap();
                     cfg.CreateMap<User, UpdateAccountPayload>().ReverseMap();
+                    cfg.CreateMap<Project, ProjectViewModel>().ReverseMap();
+                    cfg.CreateMap<Project, ProjectPayload>().ReverseMap();
+                    cfg.CreateMap<ProjectListItem, ProjectViewModel>().ReverseMap();
+                    cfg.CreateMap<Project, UpdateProjectPayload>().ReverseMap();
+                    cfg.CreateMap<ProjectListItem, Project>().ReverseMap();
 
                 });
             }

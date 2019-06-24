@@ -34,28 +34,34 @@ namespace DocIT.Core.Data.Payloads
     {
         [Required]
         public string Name { get; set; }
-
         [Required]
         public string Description { get; set; }
-        public string PathToFile { get; set; }
+        [Required]
+        public string SwaggerUrl { get; set; }
         public Guid ParentId { get; set; }
-        public Guid GitConfigId { get; set; }
+        
+        
+    }
+
+    public class GitTokenPayload
+    {
+        [Required]
         public string GitRepositoryName { get; set; }
+        [Required]
         public string Branch { get; set; }
+        [Required]
         public string GitPathToFile { get; set; }
+        public Guid GitConfigId { get; set; }
     }
 
     public class UpdateProjectPayload
     {
         [Required]
         public string Name { get; set; }
-
         [Required]
         public string Description { get; set; }
-        public string PathToFile { get; set; }
-        public Guid GitConfigId { get; set; }
-        public string GitRepositoryName { get; set; }
-        public string GitPathToFile { get; set; }
+        [Required]
+        public string SwaggerUrl { get; set; }
     }
 
     public class InvitePayload

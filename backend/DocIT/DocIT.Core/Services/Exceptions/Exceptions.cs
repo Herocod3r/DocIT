@@ -29,4 +29,12 @@ namespace DocIT.Core.Services.Exceptions
         }
         public int Code { get; }
     }
+
+    public class ProjectException : Exception
+    {
+        public ProjectException(string message) : base(message)
+        {
+
+        }
+    }
 }
