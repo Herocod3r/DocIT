@@ -15,9 +15,9 @@ namespace DocIT.Core.Repositories.Implementations
             this.userRepository = userRepository;
         }
 
-        public InviteItem CreateInvite(Invite invite, Guid projectId)
+        public InviteItem CreateInvite(Invite invite, Guid projectId,Guid userId)
         {
-            var project = ObjectQuery.Where(x => x.Id == projectId).FirstOrDefault();
+            var project = ObjectQuery.Where(x => x.Id == projectId && x.CreatedByUserId == userId).FirstOrDefault();
             if (project is null) throw new ArgumentException("Project does not exist");
             if (project.Invites?.Any(x => x.Email == invite.Email) == true) throw new InvalidOperationException("Project already contains invite");
             if (project.Invites is null) project.Invites = new List<Invite> { invite };
@@ -29,9 +29,9 @@ namespace DocIT.Core.Repositories.Implementations
             return item;
         }
 
-        public void DeleteInvite(Invite invite, Guid projectId)
+        public void DeleteInvite(Invite invite, Guid projectId, Guid userId)
         {
-            var project = ObjectQuery.FirstOrDefault(x => x.Id == projectId);
+            var project = ObjectQuery.FirstOrDefault(x => x.Id == projectId && x.CreatedByUserId == userId);
             if (project is null) throw new ArgumentException("Project does not exist");
             if (!(project.Invites?.Any(x => x.Email == invite.Email) == true)) throw new InvalidOperationException("Project does not contain invite");
             project.Invites.RemoveAt(project.Invites.FindIndex(x => x.Email == invite.Email));

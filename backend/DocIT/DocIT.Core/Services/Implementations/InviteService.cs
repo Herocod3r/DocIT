@@ -22,7 +22,7 @@ namespace DocIT.Core.Services.Implementations
         {
             try
             {
-                var rsp = await Task.Run(()=> repository.CreateInvite(new Invite { Email = payload.Email }, payload.ProjectId));
+                var rsp = await Task.Run(()=> repository.CreateInvite(new Invite { Email = payload.Email }, payload.ProjectId,userId));
                 return FromInviteItem(rsp);
             }
             catch (ArgumentException ex)
@@ -39,7 +39,7 @@ namespace DocIT.Core.Services.Implementations
         {
             try
             {
-                 await Task.Run(() => repository.DeleteInvite(new Invite { Email = payload.Email }, payload.ProjectId));
+                 await Task.Run(() => repository.DeleteInvite(new Invite { Email = payload.Email }, payload.ProjectId,userId));
                 
             }
             catch (ArgumentException ex)

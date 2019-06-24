@@ -36,7 +36,7 @@ namespace DocIT.Tests.RepositoryTests
             var usr = userRepo.CreateNew(new User { DateCreated = DateTime.Now, Email = "jethromain@gmail.com", Name = "Jaytee" });
             var invRepo = new InviteRepository(database, userRepo);
             var project = invRepo.CreateNew(new Project { CreatedByUserId = usr.Id, DateCreated = DateTime.Now, Description = "A demo api", Name = "DEMO API" });
-            var ivc = invRepo.CreateInvite(new Invite { Email = "mikey@gmail.com", InvitedAt = DateTime.Now }, project.Id);
+            var ivc = invRepo.CreateInvite(new Invite { Email = "mikey@gmail.com", InvitedAt = DateTime.Now }, project.Id,usr.Id);
             Assert.NotNull(ivc);
             Assert.NotEmpty(ivc.Invites);
         }
@@ -48,7 +48,7 @@ namespace DocIT.Tests.RepositoryTests
             var usr = userRepo.CreateNew(new User { DateCreated = DateTime.Now, Email = "jethromain@gmail.com", Name = "Jaytee" });
             var invRepo = new InviteRepository(database, userRepo);
             var project = invRepo.CreateNew(new Project { CreatedByUserId = usr.Id, DateCreated = DateTime.Now, Description = "A demo api", Name = "DEMO API" });
-            var ivc = invRepo.CreateInvite(new Invite { Email = "mikey@gmail.com", InvitedAt = DateTime.Now }, project.Id);
+            var ivc = invRepo.CreateInvite(new Invite { Email = "mikey@gmail.com", InvitedAt = DateTime.Now }, project.Id,usr.Id);
             Assert.NotNull(ivc);
             Assert.NotEmpty(ivc.Invites);
 
@@ -65,11 +65,11 @@ namespace DocIT.Tests.RepositoryTests
             var usr = userRepo.CreateNew(new User { DateCreated = DateTime.Now, Email = "jethromain@gmail.com", Name = "Jaytee" });
             var invRepo = new InviteRepository(database, userRepo);
             var project = invRepo.CreateNew(new Project { CreatedByUserId = usr.Id, DateCreated = DateTime.Now, Description = "A demo api", Name = "DEMO API" });
-            var ivc = invRepo.CreateInvite(new Invite { Email = "mikey@gmail.com", InvitedAt = DateTime.Now }, project.Id);
+            var ivc = invRepo.CreateInvite(new Invite { Email = "mikey@gmail.com", InvitedAt = DateTime.Now }, project.Id,usr.Id);
             Assert.NotNull(ivc);
             Assert.NotEmpty(ivc.Invites);
 
-            invRepo.DeleteInvite(new Invite { Email = "mikey@gmail.com", InvitedAt = DateTime.Now }, project.Id);
+            invRepo.DeleteInvite(new Invite { Email = "mikey@gmail.com", InvitedAt = DateTime.Now }, project.Id,usr.Id);
             var vproject = invRepo.GetById(project.Id);
             Assert.NotEqual(ivc.Invites.Count, vproject.Invites.Count);
         }

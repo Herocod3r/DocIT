@@ -8,7 +8,7 @@ namespace DocIT.Core.Repositories
     {
         (List<InviteItem>,long) GetUserInvites(string email,int skip,int limit);
         Invite GetInviteByEmail(string email,Guid projectId);
-        InviteItem CreateInvite(Invite invite,Guid projectId);
-        void DeleteInvite(Invite invite, Guid projectId);
+        InviteItem CreateInvite(Invite invite,Guid projectId,Guid userId);
+        void DeleteInvite(Invite invite, Guid projectId, Guid userId);
     }
 }
