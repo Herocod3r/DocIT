@@ -15,6 +15,6 @@ namespace DocIT.Core.Services
         Task<ProjectViewModel> GetProjectByLink(string link, Guid userId,string email);
         Task<ProjectViewModel> GenerateProjectLink(Guid projectId, Guid userId);
         Task<ProjectViewModel> DeleteProjectLink(Guid projectId, Guid userId, string link);
-        Task DeleteProject(Guid id,Guid userId); 
+        Task DeleteProject(Guid id,Guid userId);
     }
 }

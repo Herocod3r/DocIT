@@ -43,6 +43,24 @@ namespace DocIT.Core.Services.Implementations
             return result;
         }
 
+        public async Task<string> GetProjectSwaggerFileFromToken(string token, string type)
+        {
+            var resolver = Git.GitFactory.GetResolver(type);
+            using (var strm = new System.IO.StreamReader(await resolver.GetFileData(token)))
+            {
+                return await strm.ReadToEndAsync();
+            }
+        }
+
+        public Task<string> GetTokenForProject(GitTokenPayload payload)
+        {
+            var config = this.repository.GetById(payload.GitConfigId);
+            if (config is null) throw new ArgumentException("Git configuration not found");
+            var resolver = Git.GitFactory.GetResolver(config.Type);
+            return resolver.GetFileIdentifier(new GitResolverItem { Branch = payload.Branch, FilePath = payload.GitPathToFile, GitConnection = config, RepoName = payload.GitRepositoryName });
+
+        }
+
         public ListViewModel<GitConfigViewModel> ListAllForUser(Guid userId)
         {
 

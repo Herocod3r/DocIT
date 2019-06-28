@@ -12,5 +12,7 @@ namespace DocIT.Core.Services
         Task DeleteAsync(Guid userId, Guid itemId);
         Task<GitConfigViewModel> GetById(Guid id, Guid userId);
         Task<GitConfigViewModel> UpdateAsync(Guid userId, Guid itemId,GitConfigPayload payload);
+        Task<string> GetTokenForProject(GitTokenPayload payload);
+        Task<string> GetProjectSwaggerFileFromToken(string token,string type);
     }
 }
