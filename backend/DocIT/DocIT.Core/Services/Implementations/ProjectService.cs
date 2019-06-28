@@ -23,6 +23,7 @@ namespace DocIT.Core.Services.Implementations
         {
             var project = this.Map<Project, ProjectPayload>(payload);
             project.DateCreated = DateTime.Now;
+            project.CreatedByUserId = userId;
             project.PreviewLinks = new System.Collections.Generic.List<string>();
             await Task.Run(()=> this.repository.CreateNew(project));
             var item = this.repository.QueryAsync().FirstOrDefault(x => x.Id == project.Id);

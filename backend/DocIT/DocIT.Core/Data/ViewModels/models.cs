@@ -34,6 +34,7 @@ namespace DocIT.Core.Data.ViewModels
         public string SwaggerUrl { get; set; }
         public List<string> PreviewLinks { get; set; }
         public Guid? ParentId { get; set; }
+        public List<Invite> Invites { get; set; }
         public DateTime DateCreated { get; set; }
     }
 
