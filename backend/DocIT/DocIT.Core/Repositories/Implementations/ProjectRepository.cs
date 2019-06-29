@@ -16,7 +16,8 @@ namespace DocIT.Core.Repositories.Implementations
 
         public (List<ProjectListItem>, long) GetAllForUser(int skip, int limit, Guid userId, string email = "", string query = "")
         {
-            var queryResult = ProjectedSource.Where(x => (x.CreatedByUserId == userId || x.Invites.Any(z=>z.Email.ToLower() == email.ToLower())) && x.Name.ToLower().Contains(query)).OrderByDescending(x=>x.DateCreated);
+            var defId = default(Guid);
+            var queryResult = ProjectedSource.Where(x => (x.CreatedByUserId == userId || x.Invites.Any(z=>z.Email.ToLower() == email.ToLower())) && (x.Name.ToLower().Contains(query) && x.ParentId == defId)).OrderByDescending(x=>x.DateCreated);
             return (queryResult.Skip(skip).Take(limit).ToList(), queryResult.Count());
         }
 

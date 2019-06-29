@@ -127,9 +127,13 @@ namespace DocIT.Service.Controllers
                 var result = await service.GenerateProjectLink(id, this.UserId);
                 return Ok(result);
             }
-            catch (ProjectException ex)
+            catch(ArgumentException ex)
             {
                 return NotFound(ex.Message);
+            }
+            catch (ProjectException ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 
@@ -197,7 +201,7 @@ namespace DocIT.Service.Controllers
                 ProjectViewModel project = null;
                 if (Guid.TryParse(identifier, out Guid id)) project = await service.GetProject(id, this.UserId, this.UserEmailAddress);
                 else project = await service.GetProjectWithoutCredential(identifier);
-                if(Uri.TryCreate(project.SwaggerUrl,UriKind.Relative,out Uri uri))
+                if(Uri.TryCreate(project.SwaggerUrl,UriKind.Relative,out Uri uri) && project.SwaggerUrl.Contains("/wwwroot"))
                 {
                     if (!System.IO.File.Exists(project.SwaggerUrl)) return NotFound("The project swagger url has expired, please reupload");
                     return PhysicalFile(project.SwaggerUrl, "application/json");
