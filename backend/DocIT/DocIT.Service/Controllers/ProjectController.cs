@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using DocIT.Core.Services;
 using DocIT.Core.Data.Payloads;
 using DocIT.Core.Services.Exceptions;
-
+using DocIT.Core.Data.ViewModels;
 
 namespace DocIT.Service.Controllers
 {
@@ -24,15 +24,32 @@ namespace DocIT.Service.Controllers
             this.service = service;
             this.gitService = gitService;
         }
-        
-        [HttpGet]
-        public async Task<IActionResult> GetAll(string query = "", int skip = 0, int limit = 30) => Ok(await service.ListAll(this.UserId, this.UserEmailAddress, query,"", skip, limit));
 
+        /// <summary>
+        /// Lists all projects for a user including projects he was invited to
+        /// </summary>
+        /// <param name="query">A project name to search for</param>
+        /// <param name="skip">start showing from</param>
+        /// <param name="limit">total record to return</param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ActionResult<ListViewModel<ProjectViewModel>>> GetAll(string query = "", int skip = 0, int limit = 30) => Ok(await service.ListAll(this.UserId, this.UserEmailAddress, query,"", skip, limit));
+
+        /// <summary>
+        /// Lists all sub projects under a project
+        /// </summary>
+        /// <param name="id">The parent project id</param>
+        /// <returns></returns>
         [HttpGet("parent/{id}")]
-        public async Task<IActionResult> GetChildren(Guid id) => Ok(await service.ListSubProjects(id, this.UserId, this.UserEmailAddress));
-        
+        public async Task<ActionResult<ListViewModel<ProjectViewModel>>> GetChildren(Guid id) => Ok(await service.ListSubProjects(id, this.UserId, this.UserEmailAddress));
+
+        /// <summary>
+        /// Returns a project by the link or ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(string id)
+        public async Task<ActionResult<ProjectViewModel>> Get(string id)
         {
             try
             {
@@ -51,9 +68,14 @@ namespace DocIT.Service.Controllers
             }
         }
 
-       
+
+        /// <summary>
+        /// Creates a project, the Swagger Url should be gotten from either /file or /gitconfig/token this is generally
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]ProjectPayload value)
+        public async Task<ActionResult<ProjectViewModel>> Post([FromBody]ProjectPayload value)
         {
             try
             {
@@ -66,9 +88,15 @@ namespace DocIT.Service.Controllers
             }
         }
 
-        
+
+        /// <summary>
+        /// Updates a project, maybe name or replacing the SwaggerUrl etc
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromBody]UpdateProjectPayload value)
+        public async Task<ActionResult<ProjectViewModel>> Put(Guid id, [FromBody]UpdateProjectPayload value)
         {
             try
             {
@@ -85,8 +113,14 @@ namespace DocIT.Service.Controllers
             }
         }
 
+
+        /// <summary>
+        /// This generates a preview link, with which a project can be viewed
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost("link/{id}")]
-        public async Task<IActionResult> PostLink(Guid id)
+        public async Task<ActionResult<ProjectViewModel>> PostLink(Guid id)
         {
             try
             {
@@ -99,6 +133,12 @@ namespace DocIT.Service.Controllers
             }
         }
 
+        /// <summary>
+        /// This deletes a project's link
+        /// </summary>
+        /// <param name="id">the project id</param>
+        /// <param name="link">the link</param>
+        /// <returns></returns>
         [HttpDelete("link/{id}")]
         public async Task<IActionResult> DeleteLink(Guid id,string link)
         {
@@ -117,7 +157,12 @@ namespace DocIT.Service.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+
+        /// <summary>
+        /// Deletes a project
+        /// </summary>
+        /// <param name="id">the project id</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -136,13 +181,22 @@ namespace DocIT.Service.Controllers
             }
         }
 
+
+        /// <summary>
+        /// This renders the swagger.json file, you supply a preview link or Project Id
+        /// </summary>
+        /// <param name="identifier">preview link or project id</param>
+        /// <returns></returns>
         [AllowAnonymous]
-        [HttpGet("render/{link}")]
-        public async Task<IActionResult> RenderProject(string link)
+        [HttpGet("render/{identifier}")]
+        public async Task<IActionResult> RenderProject(string identifier)
         {
+
             try
             {
-                var project = await service.GetProjectWithoutCredential(link);
+                ProjectViewModel project = null;
+                if (Guid.TryParse(identifier, out Guid id)) project = await service.GetProject(id, this.UserId, this.UserEmailAddress);
+                else project = await service.GetProjectWithoutCredential(identifier);
                 if(Uri.TryCreate(project.SwaggerUrl,UriKind.Relative,out Uri uri))
                 {
                     if (!System.IO.File.Exists(project.SwaggerUrl)) return NotFound("The project swagger url has expired, please reupload");

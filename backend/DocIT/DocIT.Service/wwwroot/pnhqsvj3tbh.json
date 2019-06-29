@@ -1,0 +1,1604 @@
+{
+    "schemes": [
+        "https"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "This is the core order service api, generally in the response Data is nullable...And the reflect",
+        "title": "Order Service API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {},
+        "license": {},
+        "version": "1.0"
+    },
+    "host": "staging.kross.app",
+    "basePath": "/api/v1/passenger",
+    "paths": {
+        "/cars": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Create a car for a user",
+                "parameters": [
+                    {
+                        "description": "Add Car",
+                        "name": "route",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/payloads.CarPayload"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.CarInsertedViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.CarInsertedViewModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/cars/statistics/{id}": {
+            "get": {
+                "description": "get a user's single car's statistic of amount made in a month by day's if found",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Get single car's statistic",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "car ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start records from date in the format dd-mm-yyyy",
+                        "name": "startDate",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start records from date in the format dd-mm-yyyy",
+                        "name": "endDate",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.StatisticsViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.StatisticsViewModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.StatisticsViewModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/cars/{id}": {
+            "get": {
+                "description": "get a user's single car if found",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Get single car",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "car ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.CarItemViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.CarItemViewModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.CarItemViewModel"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "An admin can update everything, drivers can only update the car status wether broken or not",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "update a car for a user",
+                "parameters": [
+                    {
+                        "description": "Add Car",
+                        "name": "route",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/payloads.CarUpdatePayload"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "car ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.CarInsertedViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.CarInsertedViewModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.CarInsertedViewModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Delete single car",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "car ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.ResponseViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.ResponseViewModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/config": {
+            "get": {
+                "description": "Gets the admin config for orders",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Config"
+                ],
+                "summary": "Get Admin Config",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.AdminSettings"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.AdminSettings"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Sets the admin config for orders",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Config"
+                ],
+                "summary": "Sets Admin Config",
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/core": {
+            "put": {
+                "description": "This should be called by both the passenger and driver at each step of the order, once driver accepts passing the status,carId and driverid. When the the trip ends passing the status,orderId and TripEnd payload....Every other status like waiting for passenger,trip started,paused and cancelled, only the status code and order id is required",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Update the status of an order",
+                "parameters": [
+                    {
+                        "description": "Update Order Payload",
+                        "name": "route",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/payloads.UpdateOrderPayload"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.OrderItemViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.OrderItemViewModel"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Passenger submits an order request to find a driver",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Submit An Order Request",
+                "parameters": [
+                    {
+                        "description": "Add Order Request",
+                        "name": "route",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/payloads.OrderRequestPayload"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.OrderRequestViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.OrderRequestViewModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/core/estimate": {
+            "post": {
+                "description": "Passenger submits an estimate request for an order",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Estimate An Order Request",
+                "parameters": [
+                    {
+                        "description": "Add Order Request",
+                        "name": "route",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/payloads.EstimatePayload"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.EstimateViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.EstimateViewModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/core/statistics/": {
+            "get": {
+                "description": "Get summary of all orders from a date to an end date",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Get All Order Statistics",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "start records from date",
+                        "name": "startDate",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end records date",
+                        "name": "endDate",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "This is an array to query orders by status, specify multiple statuses to combine more records, if not specified, all orders with all status are considered",
+                        "name": "status",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.OrderSummaryViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.OrderSummaryViewModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/core/statistics/{id}": {
+            "get": {
+                "description": "Get summary of a driver from a date to an end date",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Get Statistics of a driver",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "The driver id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start records from date",
+                        "name": "startDate",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end records date",
+                        "name": "endDate",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "This is an array to query orders by status, specify multiple statuses to combine more records, if not specified, all orders with all status are considered",
+                        "name": "status",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.OrderSummaryViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.OrderSummaryViewModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/core/{id}": {
+            "get": {
+                "description": "Get all information for a single order",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Get Single Order With Detailed Information",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "The order id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.OrderRequestViewModel"
+                        }
+                    },
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.OrderRequestViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.OrderRequestViewModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/location": {
+            "post": {
+                "description": "this endpoint is used for a driver to start work and be available to take orders",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Location"
+                ],
+                "summary": "Push a location for a driver",
+                "parameters": [
+                    {
+                        "description": "Add Location",
+                        "name": "route",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/payloads.DriverLocationPayload"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.DriverLocationViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.DriverLocationViewModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "this endpoint is used when a driver wants to stop work",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Location"
+                ],
+                "summary": "Remove a location for a driver",
+                "parameters": [
+                    {
+                        "description": "Remove Location",
+                        "name": "route",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/payloads.DriverLocationPayload"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.DriverLocationViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.DriverLocationViewModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/location/{id}": {
+            "get": {
+                "description": "this endpoints gets the location of a particular driver. you can also specify the car id for detailed search",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Location"
+                ],
+                "summary": "Get single location",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "The id for the drivers car to get more detailed search",
+                        "name": "carId",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "driver ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.DriverLocationViewModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.DriverLocationViewModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/reviews": {
+            "post": {
+                "description": "Drivers can create review for a passenger and vice versa by passing in their UserID and OrderID...contsraints on this ensures only one review can be created for a particular driver after an order..",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Reviews"
+                ],
+                "summary": "Create a review for a user",
+                "parameters": [
+                    {
+                        "description": "Add Review",
+                        "name": "review",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/payloads.ReviewPayload"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.ResponseViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.ResponseViewModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/reviews/driver/{id}": {
+            "get": {
+                "description": "This endpoint gets the review for a driver for all orders, if orderId is specified,it returns the review for that specific driver and order",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Reviews"
+                ],
+                "summary": "Get driver review",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "orderId to filter review for a single order",
+                        "name": "orderId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.DriverReviewViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.DriverReviewViewModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/reviews/passenger/{id}": {
+            "get": {
+                "description": "This endpoint gets the review for a passenger for all orders, if orderId is specified,it returns the review for that specific passenger and order",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Reviews"
+                ],
+                "summary": "Get passenger review",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "orderId to filter review for a single order",
+                        "name": "orderId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.PassengerReviewViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.PassengerReviewViewModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/routes": {
+            "get": {
+                "description": "List User Routes for user and list all routes for admin",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Routes"
+                ],
+                "summary": "List Routes",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "where to start showing from",
+                        "name": "skip",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "how many records to show",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.RouteListViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.RouteListViewModel"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Routes"
+                ],
+                "summary": "Create a route for a user",
+                "parameters": [
+                    {
+                        "description": "Add route",
+                        "name": "route",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/payloads.RoutePayload"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.RouteItemViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.RouteItemViewModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/routes/{id}": {
+            "get": {
+                "description": "Gest a user's single route if found",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Routes"
+                ],
+                "summary": "Get single route",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "route ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.RouteItemViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.RouteItemViewModel"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Routes"
+                ],
+                "summary": "Update a route",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "route ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Add route",
+                        "name": "route",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/payloads.RoutePayload"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.RouteItemViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.RouteItemViewModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.RouteItemViewModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Routes"
+                ],
+                "summary": "Delete single route",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "route ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.ResponseViewModel"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/viewmodels.ResponseViewModel"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.AdminSettings": {
+            "type": "object",
+            "properties": {
+                "BaseFare": {
+                    "type": "number"
+                },
+                "DistanceFare": {
+                    "type": "number"
+                },
+                "PauseTimeFare": {
+                    "type": "number"
+                },
+                "SurgeFare": {
+                    "type": "number"
+                },
+                "TollGates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.TollGate"
+                    }
+                },
+                "TripTimeFare": {
+                    "type": "number"
+                },
+                "WaitTimeFare": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.Position": {
+            "type": "object",
+            "properties": {
+                "Latitude": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.RoutePoint": {
+            "type": "object",
+            "properties": {
+                "Coords": {
+                    "type": "object",
+                    "$ref": "#/definitions/models.Position"
+                },
+                "Street": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.RoutePointsValue": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "Coords": {
+                        "type": "object",
+                        "$ref": "#/definitions/models.Position"
+                    },
+                    "Street": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "models.TollGate": {
+            "type": "object",
+            "properties": {
+                "Fee": {
+                    "type": "number"
+                },
+                "Location": {
+                    "type": "object",
+                    "$ref": "#/definitions/models.Position"
+                }
+            }
+        },
+        "payloads.CarPayload": {
+            "type": "object",
+            "properties": {
+                "CarModel": {
+                    "type": "string"
+                },
+                "Color": {
+                    "type": "string"
+                },
+                "Insurance": {
+                    "type": "string"
+                },
+                "Make": {
+                    "type": "string"
+                },
+                "Photo": {
+                    "type": "string"
+                },
+                "PlateNumber": {
+                    "type": "string"
+                },
+                "ProofOfOwnership": {
+                    "type": "string"
+                },
+                "Status": {
+                    "description": "these fields  would only be persisted if added by the admin",
+                    "type": "integer"
+                },
+                "Year": {
+                    "type": "string"
+                }
+            }
+        },
+        "payloads.CarUpdatePayload": {
+            "type": "object",
+            "properties": {
+                "Broken": {
+                    "type": "boolean"
+                },
+                "CarModel": {
+                    "type": "string"
+                },
+                "Color": {
+                    "type": "string"
+                },
+                "Insurance": {
+                    "type": "string"
+                },
+                "Make": {
+                    "type": "string"
+                },
+                "Photo": {
+                    "type": "string"
+                },
+                "PlateNumber": {
+                    "type": "string"
+                },
+                "ProofOfOwnership": {
+                    "type": "string"
+                },
+                "Status": {
+                    "description": "these fields  would only be persisted if added by the admin",
+                    "type": "integer"
+                },
+                "Year": {
+                    "type": "string"
+                }
+            }
+        },
+        "payloads.DriverLocationPayload": {
+            "type": "object",
+            "properties": {
+                "CarId": {
+                    "type": "integer"
+                },
+                "DriverId": {
+                    "type": "integer"
+                },
+                "Identifier": {
+                    "type": "string"
+                },
+                "Latitude": {
+                    "type": "number"
+                },
+                "Longitude": {
+                    "type": "number"
+                }
+            }
+        },
+        "payloads.EndTripPayload": {
+            "type": "object",
+            "properties": {
+                "Distance": {
+                    "type": "number"
+                },
+                "Polyline": {
+                    "type": "string"
+                },
+                "RoutePoints": {
+                    "type": "object",
+                    "$ref": "#/definitions/models.RoutePointsValue"
+                }
+            }
+        },
+        "payloads.EstimatePayload": {
+            "type": "object",
+            "properties": {
+                "CarType": {
+                    "type": "string"
+                },
+                "Distance": {
+                    "type": "number"
+                },
+                "PauseTime": {
+                    "type": "number"
+                },
+                "PolyLine": {
+                    "type": "string"
+                },
+                "SurgeFactor": {
+                    "type": "number"
+                },
+                "TripTime": {
+                    "type": "number"
+                },
+                "WaitTime": {
+                    "type": "number"
+                }
+            }
+        },
+        "payloads.OrderRequestPayload": {
+            "type": "object",
+            "properties": {
+                "CarType": {
+                    "type": "string"
+                },
+                "Comment": {
+                    "type": "string"
+                },
+                "CostRange": {
+                    "type": "string"
+                },
+                "OrderFor": {
+                    "type": "string"
+                },
+                "PassengerID": {
+                    "type": "integer"
+                },
+                "PaymentID": {
+                    "type": "integer"
+                },
+                "PaymentType": {
+                    "type": "string"
+                },
+                "Polyline": {
+                    "type": "string"
+                },
+                "RoutePoints": {
+                    "type": "object",
+                    "$ref": "#/definitions/models.RoutePointsValue"
+                },
+                "ScheduledAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "payloads.ReviewPayload": {
+            "type": "object",
+            "properties": {
+                "AirConditionRate": {
+                    "type": "integer"
+                },
+                "CarNeatnessRate": {
+                    "type": "integer"
+                },
+                "CommonRate": {
+                    "type": "integer"
+                },
+                "DriverAttitudeRate": {
+                    "type": "integer"
+                },
+                "OrderID": {
+                    "type": "integer"
+                },
+                "Text": {
+                    "type": "string"
+                },
+                "UserID": {
+                    "type": "integer"
+                }
+            }
+        },
+        "payloads.RoutePayload": {
+            "type": "object",
+            "properties": {
+                "Favourite": {
+                    "type": "integer"
+                },
+                "PolyLine": {
+                    "type": "string"
+                },
+                "RoutePoints": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.RoutePoint"
+                    }
+                },
+                "UserID": {
+                    "type": "integer"
+                }
+            }
+        },
+        "payloads.UpdateOrderPayload": {
+            "type": "object",
+            "properties": {
+                "CarID": {
+                    "type": "integer"
+                },
+                "Status": {
+                    "type": "string"
+                },
+                "TripEnd": {
+                    "type": "object",
+                    "$ref": "#/definitions/payloads.EndTripPayload"
+                }
+            }
+        },
+        "viewmodels.CarInsertItem": {
+            "type": "object",
+            "properties": {
+                "Broken": {
+                    "type": "boolean"
+                },
+                "Id": {
+                    "type": "integer"
+                },
+                "Photo": {
+                    "type": "string"
+                }
+            }
+        },
+        "viewmodels.CarInsertedViewModel": {
+            "type": "object",
+            "properties": {
+                "Data": {
+                    "type": "object",
+                    "$ref": "#/definitions/viewmodels.CarInsertItem"
+                },
+                "Message": {
+                    "type": "string"
+                },
+                "StatusCode": {
+                    "type": "integer"
+                }
+            }
+        },
+        "viewmodels.CarItemViewModel": {
+            "type": "object",
+            "properties": {
+                "Data": {
+                    "type": "string"
+                },
+                "Message": {
+                    "type": "string"
+                },
+                "StatusCode": {
+                    "type": "integer"
+                }
+            }
+        },
+        "viewmodels.DriverLocationViewModel": {
+            "type": "object",
+            "properties": {
+                "Data": {
+                    "type": "string"
+                },
+                "Message": {
+                    "type": "string"
+                },
+                "StatusCode": {
+                    "type": "integer"
+                }
+            }
+        },
+        "viewmodels.DriverReviewViewModel": {
+            "type": "object",
+            "properties": {
+                "Data": {
+                    "type": "string"
+                },
+                "Message": {
+                    "type": "string"
+                },
+                "StatusCode": {
+                    "type": "integer"
+                }
+            }
+        },
+        "viewmodels.Estimate": {
+            "type": "object",
+            "properties": {
+                "Max": {
+                    "type": "number"
+                },
+                "Min": {
+                    "type": "number"
+                }
+            }
+        },
+        "viewmodels.EstimateViewModel": {
+            "type": "object",
+            "properties": {
+                "Data": {
+                    "type": "object",
+                    "$ref": "#/definitions/viewmodels.Estimate"
+                },
+                "Message": {
+                    "type": "string"
+                },
+                "StatusCode": {
+                    "type": "integer"
+                }
+            }
+        },
+        "viewmodels.OrderItemViewModel": {
+            "type": "object",
+            "properties": {
+                "Data": {
+                    "type": "string"
+                },
+                "Message": {
+                    "type": "string"
+                },
+                "StatusCode": {
+                    "type": "integer"
+                }
+            }
+        },
+        "viewmodels.OrderRequestViewModel": {
+            "type": "object",
+            "properties": {
+                "Data": {
+                    "type": "integer"
+                },
+                "Message": {
+                    "type": "string"
+                },
+                "StatusCode": {
+                    "type": "integer"
+                }
+            }
+        },
+        "viewmodels.OrderSummaryViewModel": {
+            "type": "object",
+            "properties": {
+                "Data": {
+                    "type": "string"
+                },
+                "Message": {
+                    "type": "string"
+                },
+                "StatusCode": {
+                    "type": "integer"
+                }
+            }
+        },
+        "viewmodels.PassengerReviewViewModel": {
+            "type": "object",
+            "properties": {
+                "Data": {
+                    "type": "number"
+                },
+                "Message": {
+                    "type": "string"
+                },
+                "StatusCode": {
+                    "type": "integer"
+                }
+            }
+        },
+        "viewmodels.ResponseViewModel": {
+            "type": "object",
+            "properties": {
+                "Data": {
+                    "type": "object"
+                },
+                "Message": {
+                    "type": "string"
+                },
+                "StatusCode": {
+                    "type": "integer"
+                }
+            }
+        },
+        "viewmodels.RouteItem": {
+            "type": "object",
+            "properties": {
+                "Id": {
+                    "type": "integer"
+                },
+                "Polyline": {
+                    "type": "string"
+                },
+                "RoutePoints": {
+                    "type": "string"
+                },
+                "UserID": {
+                    "type": "integer"
+                }
+            }
+        },
+        "viewmodels.RouteItemViewModel": {
+            "type": "object",
+            "properties": {
+                "Data": {
+                    "type": "object",
+                    "$ref": "#/definitions/viewmodels.RouteItem"
+                },
+                "Message": {
+                    "type": "string"
+                },
+                "StatusCode": {
+                    "type": "integer"
+                }
+            }
+        },
+        "viewmodels.RouteListViewModel": {
+            "type": "object",
+            "properties": {
+                "Data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/viewmodels.RouteItem"
+                    }
+                },
+                "Message": {
+                    "type": "string"
+                },
+                "StatusCode": {
+                    "type": "integer"
+                }
+            }
+        },
+        "viewmodels.StatisticsViewModel": {
+            "type": "object",
+            "properties": {
+                "Data": {
+                    "type": "string"
+                },
+                "Message": {
+                    "type": "string"
+                },
+                "StatusCode": {
+                    "type": "integer"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

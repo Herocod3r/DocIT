@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using DocIT.Core.Services;
 using DocIT.Core.Data.Payloads;
 using DocIT.Core.Services.Exceptions;
-
+using DocIT.Core.Data.ViewModels;
 
 namespace DocIT.Service.Controllers
 {
@@ -24,15 +24,24 @@ namespace DocIT.Service.Controllers
         }
 
 
-
+        /// <summary>
+        /// Get a user invites, more like notifications
+        /// </summary>
+        /// <param name="skip"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
         [HttpGet]
-        public  async Task<IActionResult> Get(int skip = 0, int limit = 30) => Ok(await inviteService.GetUserInvites(this.UserEmailAddress, skip, limit));
+        public  async Task<ActionResult<ListViewModel<InviteViewModel>>> Get(int skip = 0, int limit = 30) => Ok(await inviteService.GetUserInvites(this.UserEmailAddress, skip, limit));
 
        
 
-        
+        /// <summary>
+        /// Creates an invite on a project 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]InvitePayload value)
+        public async Task<ActionResult<InviteViewModel>> Post([FromBody]InvitePayload value)
         {
             try
             {
@@ -45,7 +54,11 @@ namespace DocIT.Service.Controllers
         }
 
 
-
+       /// <summary>
+       /// Deletes an invited user from a project
+       /// </summary>
+       /// <param name="payload"></param>
+       /// <returns></returns>
         [HttpDelete]
         public async Task<IActionResult> Delete(DeleteInvitePayload payload)
         {

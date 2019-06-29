@@ -24,9 +24,13 @@ namespace DocIT.Service.Controllers
         }
 
 
-
+        /// <summary>
+        /// Signs up a new user
+        /// </summary>
+        /// <param name="reg"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] RegisterPayload reg)
+        public async Task<ActionResult<AccountViewModel>> Register([FromBody] RegisterPayload reg)
         {
             try
             {
@@ -40,8 +44,13 @@ namespace DocIT.Service.Controllers
 
         }
 
+        /// <summary>
+        /// logs a user in and returns a jwt token
+        /// </summary>
+        /// <param name="loginPayload"></param>
+        /// <returns></returns>
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginPayload loginPayload)
+        public async Task<ActionResult<string>> LoginAsync([FromBody] LoginPayload loginPayload)
         {
             try
             {

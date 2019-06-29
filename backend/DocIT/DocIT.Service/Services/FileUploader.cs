@@ -20,7 +20,7 @@ namespace DocIT.Service.Services
 
         public async Task<string> UploadFileAsync(Stream stream, string ext)
         {
-            var path = Path.Combine(rootPath, $"{GetRandomName()}.{ext.Replace('.',' ')}");
+            var path = Path.Combine(rootPath, $"{GetRandomName()}.{ext.Replace(".","")}");
             using (var streamWrite = File.Open(path,FileMode.OpenOrCreate,FileAccess.ReadWrite))
             {
                 await stream.CopyToAsync(streamWrite);
@@ -34,6 +34,6 @@ namespace DocIT.Service.Services
             return UploadFileAsync(ms,ext);
         }
 
-        private string GetRandomName() => Path.GetRandomFileName().Replace('.', ' ');
+        private string GetRandomName() => Path.GetRandomFileName().Replace(".", "");
     }
 }

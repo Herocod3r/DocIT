@@ -24,8 +24,12 @@ namespace DocIT.Service.Controllers
             this.service = service;
         }
 
+        /// <summary>
+        /// Gets a user's profile
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<Core.Data.Models.User>> Get()
         {
             try
             {
@@ -38,7 +42,11 @@ namespace DocIT.Service.Controllers
         }
 
 
-
+        /// <summary>
+        /// Updates a user profile account
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         [HttpPut]
         public async Task<IActionResult> Put([FromBody]UpdateAccountPayload value)
         {

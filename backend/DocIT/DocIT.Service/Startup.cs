@@ -93,13 +93,18 @@ namespace DocIT.Service
                         Url = "https://localhost:5000"
                     }
                 });
-                options.AddSecurityDefinition("oauth2", new ApiKeyScheme
+                options.AddSecurityDefinition("Bearer",
+                new ApiKeyScheme
                 {
-                    Description = "Standard Authorization header using the Bearer scheme. Example: \"bearer {token}\"",
                     In = "header",
+                    Description = "Please enter into field the word 'Bearer' following by space and JWT",
                     Name = "Authorization",
                     Type = "apiKey"
                 });
+                options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
+                { "Bearer", Enumerable.Empty<string>() },
+            });
+
 
                 var basePath = AppContext.BaseDirectory;
                 var assemblyName = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;

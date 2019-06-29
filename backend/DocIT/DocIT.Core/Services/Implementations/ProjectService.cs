@@ -116,7 +116,7 @@ namespace DocIT.Core.Services.Implementations
 
         public async Task<ListViewModel<ProjectViewModel>> ListSubProjects(Guid parentId, Guid userId,string email)
         {
-            var project = await Task.Run(() => this.repository.QueryAsync().FirstOrDefault(x => x.Invites.Any(c => (c.Email.ToLower() == email.ToLower()) || x.CreatedByUserId == userId) && x.Id == parentId));
+            var project = await Task.Run(() => this.repository.QueryAsync().Where(x => x.Invites.Any(c => (c.Email.ToLower() == email.ToLower()) || x.CreatedByUserId == userId) && x.Id == parentId).FirstOrDefault());
             if (project is null) throw new ArgumentException("Unable to find the master project");
             var projects = await Task.Run(() => this.repository.QueryAsync().Where(x => x.Id == parentId).ToList());
             return new ListViewModel<ProjectViewModel>

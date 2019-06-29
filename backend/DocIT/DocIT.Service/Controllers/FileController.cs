@@ -21,9 +21,14 @@ namespace DocIT.Service.Controllers
         {
             this.uploader = uploader;
         }
-       
+
+        /// <summary>
+        /// Uploads a swagger file and return a relative path
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Post(IFormFile file) => Ok(await uploader.UploadFileAsync(file.OpenReadStream(), System.IO.Path.GetExtension(file.FileName)));
+        public async Task<ActionResult<string>> Post(IFormFile file) => Ok(await uploader.UploadFileAsync(file.OpenReadStream(), System.IO.Path.GetExtension(file.FileName)));
 
         
         

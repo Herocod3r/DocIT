@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using DocIT.Core.Services;
 using DocIT.Core.Data.Payloads;
+using DocIT.Core.Data.ViewModels;
 using DocIT.Core.Services.Exceptions;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,16 +24,23 @@ namespace DocIT.Service.Controllers
             this.service = service;
         }
 
-       
+       /// <summary>
+       /// Fetches all git configurations for a user
+       /// </summary>
+       /// <returns></returns>
         [HttpGet]
-        public IActionResult Get()
+        public ActionResult<ListViewModel<GitConfigViewModel>> Get()
         {
             return Ok(service.ListAllForUser(this.UserId));
         }
 
-
+        /// <summary>
+        /// gets a single git configuration for a user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<ActionResult<GitConfigViewModel>> Get(Guid id)
         {
             try
             {
@@ -43,9 +51,13 @@ namespace DocIT.Service.Controllers
                 return NotFound(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Takes a Git token payload and generates a token for getting a file from a github repo
+        /// </summary>
+        /// <param name="payload"></param>
+        /// <returns></returns>
         [HttpPost("token")]
-        public async Task<IActionResult> PostTokenPayload([FromBody] GitTokenPayload payload)
+        public async Task<ActionResult<string>> PostTokenPayload([FromBody] GitTokenPayload payload)
         {
             try
             {
@@ -64,9 +76,13 @@ namespace DocIT.Service.Controllers
 
         
 
-
+        /// <summary>
+        /// This endpoint creates a git configuration object for getting a file from a users github account
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]GitConfigPayload value)
+        public async Task<ActionResult<GitConfigViewModel>> Post([FromBody]GitConfigPayload value)
         {
             try
             {
@@ -81,7 +97,7 @@ namespace DocIT.Service.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromBody]GitConfigPayload value)
+        public async Task<ActionResult<GitConfigViewModel>> Put(Guid id, [FromBody]GitConfigPayload value)
         {
             try
             {
