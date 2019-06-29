@@ -14,8 +14,6 @@ namespace DocIT.Service.Models
         {
         }
 
-        public User UserAccount { get; set; }
-
-        public DateTime DateJoined { get; set; }
+        public Guid UserID { get; set; }
     }
 }

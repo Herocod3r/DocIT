@@ -1,8 +1,9 @@
 ﻿using System;
-namespace DocIT.Core.Data.Models
+namespace DocIT.Service.Models
 {
-    public class User : DbModel<Guid>
+    public class AccountViewModel
     {
+        public Guid UserId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
     }

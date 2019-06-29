@@ -2,6 +2,7 @@
 using DocIT.Core.Data.Payloads;
 using DocIT.Core.Data.ViewModels;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace DocIT.Core.Services
 {
@@ -12,5 +13,7 @@ namespace DocIT.Core.Services
         Task DeleteAsync(Guid userId, Guid itemId);
         Task<GitConfigViewModel> GetById(Guid id, Guid userId);
         Task<GitConfigViewModel> UpdateAsync(Guid userId, Guid itemId,GitConfigPayload payload);
+        Task<string> GetTokenForProject(GitTokenPayload payload);
+        Task<Stream> GetProjectSwaggerFileFromToken(string token,string type);
     }
 }

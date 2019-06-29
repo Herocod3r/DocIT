@@ -9,10 +9,11 @@ namespace DocIT.Core.Repositories
 {
     public interface IBaseRepository<TModel,TQueryModel,Tid> where TModel:DbModel<Tid>
     {
-        Task<TModel> GetByIdAsync(Tid id);
-        Task<TModel> CreateNewAsync(TModel item);
-        Task UpdateAsync(TModel item);
-        Task DeleteAsync(TModel item);
+        TModel GetById(Tid id);
+        TModel CreateNew(TModel item);
+        void Update(TModel item);
+        void Delete(TModel item);
         System.Linq.IQueryable<TQueryModel> QueryAsync();
+        System.Linq.IQueryable<TModel> ObjectQuery { get; }
     }
 }

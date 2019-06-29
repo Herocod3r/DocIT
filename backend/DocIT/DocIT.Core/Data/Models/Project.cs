@@ -9,6 +9,8 @@ namespace DocIT.Core.Data.Models
         public string Description { get; set; }
         public string SwaggerUrl { get; set; }
         public List<string> PreviewLinks { get; set; }
-        public Guid? ParentId { get; set; }
+        public Guid ParentId { get; set; }
+        public Guid CreatedByUserId { get; set; }
+        public List<Invite> Invites { get; set; }
     }
 }

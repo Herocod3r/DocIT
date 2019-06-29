@@ -22,5 +22,11 @@
 </PropertyGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Services\" />
+    <Folder Include="Authentication\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\03h0zeeh ux4. json" />
   </ItemGroup>
 </Project>

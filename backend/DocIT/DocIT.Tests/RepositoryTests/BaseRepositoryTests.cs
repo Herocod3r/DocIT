@@ -25,7 +25,7 @@ namespace DocIT.Tests.RepositoryTests
         {
             IGitConfigurationRepository repo = new GitConfigurationRepository(database);
             var id = Guid.NewGuid();
-            var rsp = repo.CreateNewAsync(new GitConnectionConfig { AccountName = "herocod3r", PersonalToken = "tos829", UserId = id }).Result;
+            var rsp = repo.CreateNew(new GitConnectionConfig { AccountName = "herocod3r", PersonalToken = "tos829", UserId = id });
             Assert.NotEqual(default(Guid), rsp.Id);
         }
 
@@ -35,8 +35,8 @@ namespace DocIT.Tests.RepositoryTests
         {
             IGitConfigurationRepository repo = new GitConfigurationRepository(database);
             var id = Guid.NewGuid();
-            var rsp = repo.CreateNewAsync(new GitConnectionConfig { AccountName = "herocod3r", PersonalToken = "tos829", UserId = id }).Result;
-            var xitem = repo.GetByIdAsync(rsp.Id).Result;
+            var rsp = repo.CreateNew(new GitConnectionConfig { AccountName = "herocod3r", PersonalToken = "tos829", UserId = id });
+            var xitem = repo.GetById(rsp.Id);
             Assert.Equal(rsp.Id, xitem.Id);
         }
 
@@ -45,11 +45,11 @@ namespace DocIT.Tests.RepositoryTests
         {
             IGitConfigurationRepository repo = new GitConfigurationRepository(database);
             var id = Guid.NewGuid();
-            var rsp = repo.CreateNewAsync(new GitConnectionConfig { AccountName = "herocod3r", PersonalToken = "tos829", UserId = id }).Result;
+            var rsp = repo.CreateNew(new GitConnectionConfig { AccountName = "herocod3r", PersonalToken = "tos829", UserId = id });
             rsp.AccountName = "jaytee";
-            repo.UpdateAsync(rsp).Wait();
+            repo.Update(rsp);
 
-            var xitem = repo.GetByIdAsync(rsp.Id).Result;
+            var xitem = repo.GetById(rsp.Id);
             Assert.Equal(rsp.AccountName, xitem.AccountName);
 
         }
@@ -59,11 +59,11 @@ namespace DocIT.Tests.RepositoryTests
         {
             IGitConfigurationRepository repo = new GitConfigurationRepository(database);
             var id = Guid.NewGuid();
-            var rsp = repo.CreateNewAsync(new GitConnectionConfig { AccountName = "herocod3r", PersonalToken = "tos829", UserId = id }).Result;
+            var rsp = repo.CreateNew(new GitConnectionConfig { AccountName = "herocod3r", PersonalToken = "tos829", UserId = id });
             rsp.AccountName = "jaytee";
-            repo.DeleteAsync(rsp).Wait();
+            repo.Delete(rsp);
 
-            var xitem = repo.GetByIdAsync(rsp.Id).Result;
+            var xitem = repo.GetById(rsp.Id);
             Assert.Null(xitem);
         }
 
@@ -72,7 +72,7 @@ namespace DocIT.Tests.RepositoryTests
         {
             IGitConfigurationRepository repo = new GitConfigurationRepository(database);
             var id = Guid.NewGuid();
-            var rsp = repo.CreateNewAsync(new GitConnectionConfig { AccountName = "herocod3r", PersonalToken = "tos829", UserId = id }).Result;
+            var rsp = repo.CreateNew(new GitConnectionConfig { AccountName = "herocod3r", PersonalToken = "tos829", UserId = id });
             var item = repo.QueryAsync().Where(x => x.AccountName == "herocod3r").FirstOrDefault();
             Assert.NotNull(item);
         }
@@ -86,6 +86,7 @@ namespace DocIT.Tests.RepositoryTests
             {
                 if (disposing)
                 {
+                    DocIT.Core.AutoMapperConfig.Clear();
                     _runner.Dispose();
                 }
 
