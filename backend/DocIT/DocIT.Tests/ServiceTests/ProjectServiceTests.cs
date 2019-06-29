@@ -42,7 +42,7 @@ namespace DocIT.Tests.ServiceTests
         public void TestListAllProject()
         {
             Test_CreateProject();
-            var rsp = service.ListAll(uid, "", "", "").Result;
+            var rsp = service.ListAll(uid, "", "", "",0,100).Result;
             Assert.NotNull(rsp);
             Assert.NotEmpty(rsp.Result);
         }

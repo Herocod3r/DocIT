@@ -104,9 +104,9 @@ namespace DocIT.Core.Services.Implementations
             return this.Map<ProjectViewModel, ProjectListItem>(project);
         }
 
-        public async Task<ListViewModel<ProjectViewModel>> ListAll(Guid userId, string email, string query, string orderBy)
+        public async Task<ListViewModel<ProjectViewModel>> ListAll(Guid userId, string email, string query, string orderBy, int skip, int limit)
         {
-            var (items,count) = await Task.Run(()=> this.repository.GetAllForUser(0, 100, userId, email, query));
+            var (items,count) = await Task.Run(()=> this.repository.GetAllForUser(skip, limit, userId, email, query));
             return new ListViewModel<ProjectViewModel>
             {
                 Total = count,
@@ -138,6 +138,11 @@ namespace DocIT.Core.Services.Implementations
 
         }
 
-        
+        public async Task<ProjectViewModel> GetProjectWithoutCredential(string link)
+        {
+            var project = await Task.Run(() => this.repository.QueryAsync().FirstOrDefault(x => x.PreviewLinks.Any(c => c == link)));
+            if (project is null) throw new ArgumentException("Unable to find the project");
+            return this.Map<ProjectViewModel, ProjectListItem>(project);
+        }
     }
 }

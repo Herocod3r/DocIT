@@ -6,6 +6,7 @@ using DocIT.Core.Data.ViewModels;
 using DocIT.Core.Repositories;
 using DocIT.Core.Services.Exceptions;
 using System.Linq;
+using System.IO;
 
 namespace DocIT.Core.Services.Implementations
 {
@@ -43,13 +44,10 @@ namespace DocIT.Core.Services.Implementations
             return result;
         }
 
-        public async Task<string> GetProjectSwaggerFileFromToken(string token, string type)
+        public async Task<Stream> GetProjectSwaggerFileFromToken(string token, string type)
         {
             var resolver = Git.GitFactory.GetResolver(type);
-            using (var strm = new System.IO.StreamReader(await resolver.GetFileData(token)))
-            {
-                return await strm.ReadToEndAsync();
-            }
+            return await resolver.GetFileData(token);
         }
 
         public Task<string> GetTokenForProject(GitTokenPayload payload)

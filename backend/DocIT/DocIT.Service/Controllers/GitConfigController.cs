@@ -36,13 +36,33 @@ namespace DocIT.Service.Controllers
         {
             try
             {
-                return Ok(service.GetById(id, this.UserId));
+                return Ok(await service.GetById(id, this.UserId));
             }
             catch (GitConfigException ex)
             {
                 return NotFound(ex.Message);
             }
         }
+
+        [HttpPost("token")]
+        public async Task<IActionResult> PostTokenPayload([FromBody] GitTokenPayload payload)
+        {
+            try
+            {
+                return Ok(await service.GetTokenForProject(payload));
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (GitResolverException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        
 
 
         [HttpPost]
