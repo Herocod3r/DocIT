@@ -91,7 +91,7 @@ namespace DocIT.Core.Services.Implementations
 
         public async Task<ProjectViewModel> GetProject(Guid id, Guid userId, string email)
         {
-            var project = this.repository.QueryAsync().FirstOrDefault(x => x.Id == id && x.CreatedByUserId == userId);
+            var project = this.repository.QueryAsync().FirstOrDefault(x => (x.CreatedByUserId == userId || x.Invites.Any(z => z.Email.ToLower() == email.ToLower())) && x.Id == id);
             if (project is null) throw new ArgumentException("Unable to find the project");
             return this.Map<ProjectViewModel, ProjectListItem>(project);
 
@@ -116,12 +116,10 @@ namespace DocIT.Core.Services.Implementations
 
         public async Task<ListViewModel<ProjectViewModel>> ListSubProjects(Guid parentId, Guid userId,string email)
         {
-            var project = await Task.Run(() => this.repository.QueryAsync().Where(x => x.Invites.Any(c => (c.Email.ToLower() == email.ToLower()) || x.CreatedByUserId == userId) && x.Id == parentId).FirstOrDefault());
-            if (project is null) throw new ArgumentException("Unable to find the master project");
-            var projects = await Task.Run(() => this.repository.QueryAsync().Where(x => x.Id == parentId).ToList());
+            var projects = await Task.Run(() => this.repository.QueryAsync().Where(x => (x.CreatedByUserId == userId || x.Invites.Any(z => z.Email.ToLower() == email.ToLower())) && x.Id == parentId).ToList());
             return new ListViewModel<ProjectViewModel>
             {
-                Total = project.NoOfSubProjects,
+                Total = projects.Count,
                 Result = projects.Select(x => Map<ProjectViewModel, ProjectListItem>(x)).ToList()
             };
         }

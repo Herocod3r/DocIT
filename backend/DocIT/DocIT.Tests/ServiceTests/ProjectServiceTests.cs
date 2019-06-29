@@ -48,6 +48,13 @@ namespace DocIT.Tests.ServiceTests
         }
 
         [Fact]
+        public void Test_ListSubProjects()
+        {
+            var rsp = service.ListSubProjects(Guid.NewGuid(), uid, "");
+
+        }
+
+        [Fact]
         public void Test_GenerateProjectLink()
         {
             var rsp = service.CreateProject(new Core.Data.Payloads.ProjectPayload { Description = "An app that can fly", Name = "Fly Api", SwaggerUrl = "sawggenrunds832" }, uid).Result;
