@@ -28,6 +28,8 @@ namespace DocIT.Service.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll(string query = "", int skip = 0, int limit = 30) => Ok(await service.ListAll(this.UserId, this.UserEmailAddress, query,"", skip, limit));
 
+        [HttpGet("parent/{id}")]
+        public async Task<IActionResult> GetChildren(Guid id) => Ok(await service.ListSubProjects(id, this.UserId, this.UserEmailAddress));
         
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
